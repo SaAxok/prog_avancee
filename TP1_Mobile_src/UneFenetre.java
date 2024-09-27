@@ -4,7 +4,7 @@ import javax.swing.*;
 class UneFenetre extends JFrame 
 {
     UnMobile sonMobile;
-    private final int LARG=1200, HAUT=250;
+    private final int LARG=1900, HAUT=250;
     
     public UneFenetre()
     {
