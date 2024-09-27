@@ -6,3 +6,5 @@
 
 Thread : processus propre qui possède un environnement, un état et un nom.  
 Les threads possèdent une seule mémoire partagée
+
+//TODO : ajout button dans l'UML
