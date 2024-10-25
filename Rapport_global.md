@@ -1,6 +1,8 @@
 # Programmation parallèle à mémoire partagée
 
 > Gravier Kylian INF3-FA
+> - Rapport rédigé avec l'aide d'intelligence artificielle (Mistral)
+> - Les TP ont été réalisés avec l'aide de Github Copilot
 
 ## TP1 : Dossier de conception du TP Thread
 

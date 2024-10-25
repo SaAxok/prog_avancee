@@ -6,7 +6,7 @@ class UnMobile extends JPanel implements Runnable
     int saLargeur, saHauteur, sonDebDessin;
     final int sonCote=40;
 	static int[] dico_pas = {10, 20, 30, 40, 50, 60, 70};
-	static semaphoreBinaire sem = new semaphoreBinaire(1);
+	static semaphoreGeneral sem = new semaphoreGeneral(3);
     
     UnMobile(int telleLargeur, int telleHauteur)
     {
