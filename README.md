@@ -4,12 +4,41 @@
 > - Rapport rédigé avec l'aide d'intelligence artificielle (Mistral)
 > - Les TP ont été réalisés avec l'aide de Github Copilot
 
+
+## Table des matières
+
+- [TP1 : Dossier de conception du TP Thread](#tp1--dossier-de-conception-du-tp-thread)
+    - [Exercice 1](#exercice-1)
+    - [Exercice 2](#exercice-2)
+
+- [TP2 : Affichage synchronisé](#tp2--affichage-synchronisé)
+    - [Sémpahore](#sémpahore)
+        - [Des Outils de Synchronisation](#des-outils-de-synchronisation)
+        - [Subtilités de l'Implémentation des Sémaphores](#subtilités-de-limplémentation-des-sémaphores)
+        - [Exemple : Analogie avec un Phare](#exemple--analogie-avec-un-phare)
+        - [Conclusion](#conclusion)
+        - [Procédé](#procédé)
+
 ## TP1 : Dossier de conception du TP Thread
 
 Thread : processus propre qui possède un environnement, un état et un nom.  
 Les threads possèdent une seule mémoire partagée
 
-//TODO : ajout button dans l'UML
+### Exercice 1
+
+**Implémentation :**
+La classe `UnMobile` représente un mobile qui se déplace dans une interface graphique en utilisant un thread. Le mouvement est simulé par une boucle qui fait appel à la méthode `repaint()` pour redessiner le mobile à intervalles réguliers.
+
+**Ce que j'ai compris :**
+La méthode `run()` contient une boucle de déplacement du mobile en incrémentant sonDebutDessin par sonPas à chaque itération, puis appelle `repaint()` pour redessiner le mobile à sa nouvelle position. La méthode `sleep()` permet de contrôler la vitesse du mouvement.
+
+## Exercice 2
+
+**Implémentation :**
+J'ai ajouté `UnMobile` à `UneFenetre` avec la méthode `add()` et créé un thread pour animer le mobile en appelant `start()` sur le thread du mobile.
+
+**Ce que j'ai appris :**
+La classe JFrame permet de créer une fenêtre avec `setVisible()` et `setSize()` pour définir ses dimensions. `add()` permet d'ajouter des composants (ici UnMobile) dans cette fenêtre.
 
 
 ## TP2 : Affichage synchronisé
