@@ -1,21 +1,37 @@
 public class BAL {
-    private String lettre = null;
+    private final String[] tampon;
+    private int tete = 0;
+    private int queue = 0;
+    private int nbLettres = 0;
+    private final int capacite;
+
+    public BAL(int capacite) {
+        this.capacite = capacite;
+        this.tampon = new String[capacite];
+    }
 
     public synchronized void deposer(String lettre) throws InterruptedException {
-        while (this.lettre != null) {
+        while (nbLettres == capacite) {
             wait();
         }
-        this.lettre = lettre;
+        tampon[queue] = lettre;
+        queue = (queue + 1) % capacite;
+        nbLettres++;
         notifyAll();
     }
 
     public synchronized String retirer() throws InterruptedException {
-        while (this.lettre == null) {
+        while (nbLettres == 0) {
             wait();
         }
-        String lettreRetiree = this.lettre;
-        this.lettre = null;
+        String lettre = tampon[tete];
+        tete = (tete + 1) % capacite;
+        nbLettres--;
         notifyAll();
-        return lettreRetiree;
+        return lettre;
+    }
+
+    public synchronized int getNbLettres() {
+        return nbLettres;
     }
 }

@@ -1,5 +1,3 @@
-import java.util.Random;
-
 public class Producteur extends Thread {
     private BAL bal;
 
@@ -10,10 +8,13 @@ public class Producteur extends Thread {
     @Override
     public void run() {
         try {
-            Random random = new Random();
-            String lettre = String.valueOf((char) (random.nextInt(26) + 'A'));
-            bal.deposer(lettre);
-            System.out.println("Producteur a déposé la lettre: " + lettre);
+            for (char lettre = 'A'; lettre <= 'Z'; lettre++) {
+                bal.deposer(String.valueOf(lettre));
+                System.out.println("Producteur a déposé: " + lettre);
+                Thread.sleep(100);
+            }
+            bal.deposer("*");
+            System.out.println("Producteur a terminé la production.");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
