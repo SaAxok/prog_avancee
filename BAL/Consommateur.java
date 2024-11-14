@@ -1,5 +1,5 @@
 public class Consommateur extends Thread {
-    private BAL bal;
+    private final BAL bal;
 
     public Consommateur(BAL bal) {
         this.bal = bal;
@@ -10,11 +10,10 @@ public class Consommateur extends Thread {
         try {
             while (true) {
                 String lettre = bal.retirer();
-                System.out.println("Consommateur a retiré: " + lettre);
                 if ("*".equals(lettre)) {
-                    break;
+                    break; 
                 }
-                Thread.sleep(150);
+                Thread.sleep(500); 
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

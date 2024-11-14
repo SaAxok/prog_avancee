@@ -17,7 +17,8 @@ public class BAL {
         tampon[queue] = lettre;
         queue = (queue + 1) % capacite;
         nbLettres++;
-        notifyAll();
+        System.out.println("Producteur a déposé: " + lettre);
+        notifyAll(); 
     }
 
     public synchronized String retirer() throws InterruptedException {
@@ -27,11 +28,8 @@ public class BAL {
         String lettre = tampon[tete];
         tete = (tete + 1) % capacite;
         nbLettres--;
+        System.out.println("Consommateur a retiré: " + lettre);
         notifyAll();
         return lettre;
-    }
-
-    public synchronized int getNbLettres() {
-        return nbLettres;
     }
 }
