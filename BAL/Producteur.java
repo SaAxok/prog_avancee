@@ -1,4 +1,4 @@
-public class Producteur extends Thread {
+public class Producteur implements Runnable {
     private final BAL bal;
 
     public Producteur(BAL bal) {

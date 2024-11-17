@@ -1,4 +1,4 @@
-public class Consommateur extends Thread {
+public class Consommateur implements Runnable {
     private final BAL bal;
 
     public Consommateur(BAL bal) {
@@ -11,9 +11,10 @@ public class Consommateur extends Thread {
             while (true) {
                 String lettre = bal.retirer();
                 if ("*".equals(lettre)) {
-                    break; 
+                    System.out.println("Consommateur a terminé son travail.");
+                    break;
                 }
-                Thread.sleep(500); 
+                Thread.sleep(500);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

@@ -1,35 +1,35 @@
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
+
 public class BAL {
-    private final String[] tampon;
-    private int tete = 0;
-    private int queue = 0;
-    private int nbLettres = 0;
-    private final int capacite;
+    private final BlockingQueue<String> queue;
 
     public BAL(int capacite) {
-        this.capacite = capacite;
-        this.tampon = new String[capacite];
+        this.queue = new ArrayBlockingQueue<>(capacite);
     }
 
-    public synchronized void deposer(String lettre) throws InterruptedException {
-        while (nbLettres == capacite) {
-            wait();
+    public boolean deposer(String lettre) throws InterruptedException {
+        boolean success = queue.offer(lettre, 200, TimeUnit.MILLISECONDS);
+        if (success) {
+            System.out.println("Producteur a déposé: " + lettre);
+        } else {
+            System.out.println("Le tampon est plein, le producteur abandonne: " + lettre);
         }
-        tampon[queue] = lettre;
-        queue = (queue + 1) % capacite;
-        nbLettres++;
-        System.out.println("Producteur a déposé: " + lettre);
-        notifyAll(); 
+        return success;
     }
 
-    public synchronized String retirer() throws InterruptedException {
-        while (nbLettres == 0) {
-            wait();
+    public String retirer() throws InterruptedException {
+        String lettre = queue.poll(200, TimeUnit.MILLISECONDS);
+        if (lettre != null) {
+            System.out.println("Consommateur a retiré: " + lettre);
+        } else {
+            System.out.println("Le tampon est vide, le consommateur repart les mains vides.");
         }
-        String lettre = tampon[tete];
-        tete = (tete + 1) % capacite;
-        nbLettres--;
-        System.out.println("Consommateur a retiré: " + lettre);
-        notifyAll();
         return lettre;
+    }
+
+    public int getStock() {
+        return queue.size();
     }
 }

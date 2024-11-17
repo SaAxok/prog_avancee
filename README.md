@@ -7,6 +7,15 @@
 
 ## Table des matières
 
+- [ Définitions ](#définitions-)
+
+    -   [Thread](###Thread)
+    -   [Semaphore](###Semaphore)
+    -   [Ressource critique](###Ressource-critique)
+    -   [Scetion critique](###Scetion-critique)
+    -   [Programmation parallèle](###Programmation-parralèle)
+    -   [Programmation partagée](###Programmation-partagée)
+
 - [TP1 : Dossier de conception du TP Thread](#tp1--dossier-de-conception-du-tp-thread)
     - [Exercice 1](#exercice-1)
     - [Exercice 2](#exercice-2)
@@ -18,6 +27,16 @@
         - [Exemple : Analogie avec un Phare](#exemple--analogie-avec-un-phare)
         - [Conclusion](#conclusion)
         - [Procédé](#procédé)
+
+## Définitions :
+
+### Thread
+### Semaphore
+### Ressource critique
+### Scetion critique
+### Programmation paralèle
+### Programmation partagée
+### Parallelisme de tâches
 
 ## TP1 : Dossier de conception du TP Thread
 
@@ -110,3 +129,12 @@ On instancie **un seul** sémaphore en `final` dans la classe `Mobile`, car il e
 6. Premier tiers vers la gauche
 
 En divisant le trajet d'un mobile de cette façon, on peut facilement contrôler l'accès au deuxième tiers avec les deux boucles qui gèrent cette section de la fenêtre. Avec le sémaphore général à 1, un seul mobile peut passer dans la section contrôlée par le sémaphore. On utilise la méthode `sem.syncWait()` avant d'entrer dans le deuxième tiers (vers la droite et la gauche) et `syncSignal()` quand on en sort pour permettre au suivant d'entrer. De cette manière, on contrôle l'accès au deuxième tiers de façon à ce qu'on ne puisse pas y voir passer plus d'un mobile à la fois.
+
+## TP3 - Boîte aux lettre
+
+TODO : refaire le TP dans le même style que le code de paumard : [juste ici](https://blog.paumard.org/cours/java-api/chap05-concurrent-queues.html)
+
+### Exercice 1
+
+### Exercice 2
+Boulangerie est un wrapper de BlockingQueue
