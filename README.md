@@ -171,3 +171,19 @@ Cette organisation permet une séparation claire des responsabilités : les prod
 ### Conclusion  
 
 Ce TP illustre les avantages des outils de synchronisation modernes, comme **`BlockingQueue`**, pour gérer efficacement la concurrence, prévenir les blocages et simplifier le code.
+
+---
+
+
+## Partie 3 : 
+
+définitions, fonctionnement et usages : 
+- master / worker
+- future
+- accélération (speedup)
+- Scalabilité
+
+=> expliquer les futures, le role du master worker, comment c'est implementer le parallélisme que ça offre (M/W montecarlo : génération du point + passage dans la section critique) temps d'exec = ntot/2 + 3/4 wntot
+=> work stealing pool
+=> Si c'est bien programmé  : montecarlo doit aoir une bonne scalabilité forte et faible. Mais à cause du numérique c'est vite limité
+=> 
