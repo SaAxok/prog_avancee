@@ -183,7 +183,9 @@ définitions, fonctionnement et usages :
 - accélération (speedup)
 - Scalabilité
 
+=> expliquer MonteCarlo
 => expliquer les futures, le role du master worker, comment c'est implementer le parallélisme que ça offre (M/W montecarlo : génération du point + passage dans la section critique) temps d'exec = ntot/2 + 3/4 wntot
 => work stealing pool
+=> explication de application de l'api concurrent 
 => Si c'est bien programmé  : montecarlo doit aoir une bonne scalabilité forte et faible. Mais à cause du numérique c'est vite limité
 => 

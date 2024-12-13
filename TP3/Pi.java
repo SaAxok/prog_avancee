@@ -15,8 +15,7 @@ import java.util.concurrent.Future;
  */
 public class Pi 
 {
-    public static void main(String[] args) throws Exception 
-    {
+    public static void main(String[] args) throws Exception {
 	long total=0;
 	// 10 workers, 50000 iterations each
 	total = new Master().doRun(50000, 10);
@@ -24,12 +23,12 @@ public class Pi
     }
 }
 
-/**
+/**public long doRun(int ntot, int numWorkers) throws InterruptedException, ExecutionException
  * Creates workers to run the Monte Carlo simulation
  * and aggregates the results.
  */
 class Master {
-    public long doRun(int totalCount, int numWorkers) throws InterruptedException, ExecutionException 
+    public long doRun(int totalCount, int numWorkers) throws InterruptedException, ExecutionException
     {
 
 	long startTime = System.currentTimeMillis();
@@ -67,13 +66,12 @@ class Master {
 	System.out.println( (Math.abs((pi - Math.PI)) / Math.PI) +" "+ totalCount*numWorkers +" "+ numWorkers +" "+ (stopTime - startTime));
 
 	try {
-		FileWriter writer = new FileWriter("TP3/out-pi-mac.txt", true);
-				writer.write("Approx value: " + pi + ", " +
-							 "Difference to exact value of pi: " + (pi - Math.PI) + ", " +
-							 "Error: " + (pi - Math.PI) / Math.PI * 100 + " %, " +
+		FileWriter writer = new FileWriter("TP3/out-pi-G26-4c.txt", true);
+				writer.write("Relative err : " + (Math.abs(pi - Math.PI)/Math.PI) + ", " +
+							 "Ntot : " + totalCount*numWorkers + ", " +
 							 "Available processors: " + Runtime.getRuntime().availableProcessors() + ", " +
 							 "Time Duration: " + (stopTime - startTime) + "ms, " +
-							 "nThrows: " + "\n");
+							 "\n");
 		writer.close();
 	} catch (IOException e) {
 		System.out.println("An error occurred while writing to the file.");

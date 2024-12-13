@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="prog_avancee">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Semaphore_Mobile.zip!/" />
+      <root url="jar://$PROJECT_DIR$/BAL.zip!/" />
+      <root url="jar://$PROJECT_DIR$/TP1_Mobile_src.zip!/" />
+      <root url="jar://$PROJECT_DIR$/TP2_Affichage.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

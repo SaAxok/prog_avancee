@@ -1,5 +1,5 @@
 // Estimate the value of Pi using Monte-Carlo Method, using parallel program
-package assignments;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
@@ -9,6 +9,8 @@ class PiMonteCarlo {
 	AtomicInteger nAtomSuccess;
 	int nThrows;
 	double value;
+	int nProcessors;
+
 	class MonteCarlo implements Runnable {
 		@Override
 		public void run() {
@@ -18,13 +20,14 @@ class PiMonteCarlo {
 				nAtomSuccess.incrementAndGet();
 		}
 	}
-	public PiMonteCarlo(int i) {
+	public PiMonteCarlo(int i, int iProcessors) {
 		this.nAtomSuccess = new AtomicInteger(0);
 		this.nThrows = i;
 		this.value = 0;
+		this.nProcessors = iProcessors;
 	}
 	public double getPi() {
-		int nProcessors = Runtime.getRuntime().availableProcessors();
+//		int nProcessors = Runtime.getRuntime().availableProcessors();
 		ExecutorService executor = Executors.newWorkStealingPool(nProcessors);
 		for (int i = 1; i <= nThrows; i++) {
 			Runnable worker = new MonteCarlo();
@@ -39,7 +42,9 @@ class PiMonteCarlo {
 }
 public class Assignment102 {
 	public static void main(String[] args) {
-		PiMonteCarlo PiVal = new PiMonteCarlo(100000);
+		int nTot = Integer.parseInt(args[0]);
+		int nbProcesses = Integer.parseInt(args[1]);
+		PiMonteCarlo PiVal = new PiMonteCarlo(nTot, nbProcesses);
 		long startTime = System.currentTimeMillis();
 		double value = PiVal.getPi();
 		long stopTime = System.currentTimeMillis();
@@ -49,11 +54,12 @@ public class Assignment102 {
 		System.out.println("Available processors: " + Runtime.getRuntime().availableProcessors());
 		System.out.println("Time Duration: " + (stopTime - startTime) + "ms");
 		try {
-			FileWriter writer = new FileWriter("TP3/out-assignements102-mac.txt", true);
+			FileWriter writer = new FileWriter("TP3/out-assignments102-G26-4c.txt", true);
 			writer.write("Approx value: " + value + ", " +
 						 "Difference to exact value of pi: " + (value - Math.PI) + ", " +
 						 "Error: " + (value - Math.PI) / Math.PI * 100 + " %, " +
-						 "Available processors: " + Runtime.getRuntime().availableProcessors() + ", " +
+						 "nTot: " + nTot + ", " +
+						 "Available processors: " + nbProcesses + ", " +
 						 "Time Duration: " + (stopTime - startTime) + "ms, " +
 						 "nThrows: " + PiVal.nThrows + "\n");
 			writer.close();
