@@ -174,7 +174,6 @@ Ce TP illustre les avantages des outils de synchronisation modernes, comme **`Bl
 
 ---
 
-
 ## Partie 3 : 
 
 définitions, fonctionnement et usages : 
@@ -187,5 +186,57 @@ définitions, fonctionnement et usages :
 => expliquer les futures, le role du master worker, comment c'est implementer le parallélisme que ça offre (M/W montecarlo : génération du point + passage dans la section critique) temps d'exec = ntot/2 + 3/4 wntot
 => work stealing pool
 => explication de application de l'api concurrent 
-=> Si c'est bien programmé  : montecarlo doit aoir une bonne scalabilité forte et faible. Mais à cause du numérique c'est vite limité
-=> 
+=> Si c'est bien programmé  : montecarlo doit avoir une bonne scalabilité forte et faible. Mais à cause du numérique c'est vite limité
+=> Montecralo, analyse des performmances 
+
+## Partie 4
+
+=> Programmation distribuée
+=> Master envoie des msg aux workers : workers sont parrallèles et renvoie le result au master
+- paratgée : passage d'argument, récupération du result avec `.get()`
+- worker ailleurs physiquement implique d'envoyer des msg réseaux, et recevoir result en réseau (socket)  
+
+**Diff : communnication par msg réseaux et non en partage d'arguments** 
+
+=> Comment implémenter M / W en distribuée ?
+- Utilisation de socket client / server qu'on utilise en tant que M/W
+    - Client : Master
+    - Server : Worker
+- Faire un cours de socket dans le rapport
+
+### Analyse MasterSocket.java
+
+#### Étapes principales dans le code
+- **Initialisation des workers** :
+    - Le master demande combien de workers (processus) seront utilisés. Il ouvre un socket (canal de communication) pour chaque worker sur un port donné.
+- **Envoi des tâches aux workers** :
+    - Chaque worker reçoit le nombre total de points à générer pour l'estimation de 𝜋.
+
+- **Traitement par les workers** :
+    - Les workers génèrent des points aléatoires dans un carré, comptent ceux qui tombent dans un quart de cercle et renvoient leurs résultats au master.
+
+- **Récupération des résultats** :
+    - Le master collecte les résultats des workers via leurs sockets respectifs.
+    - Il combine ces résultats pour calculer la valeur approximative de 𝜋.
+
+- **Affichage des résultats** :
+    - Le master affiche 𝜋, l'erreur relative, et les statistiques de performance (durée, nombre de points, etc.).
+    - L'utilisateur peut choisir de répéter la simulation.
+
+- **Fermeture des sockets** :
+    - Une fois la simulation terminée, les sockets entre le master et les workers sont fermés proprement.
+
+#### Sockets : 
+- **Socket côté master** : Utilisé pour envoyer des tâches et recevoir des résultats.
+- **Socket côté worker (non montré ici)** : Écoute les messages du master, exécute la tâche, puis renvoie le résultat.
+
+#### Flux général de la communication
+**Master :**
+- Connecte un socket pour chaque worker.
+- Envoie une tâche à chaque worker via un flux d'écriture (PrintWriter).
+- Lit les résultats des workers via un flux de lecture (BufferedReader).
+
+**Workers (côté serveur, non montré ici) :**
+- Écoute sur un port spécifique.
+- Reçoit les données envoyées par le master.
+- Effectue le calcul et renvoie le résultat.
