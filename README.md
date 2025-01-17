@@ -206,6 +206,10 @@ définitions, fonctionnement et usages :
     - Server : Worker
 - Faire un cours de socket dans le rapport
 
+## Analyse des Sockets JAVA
+
+!["Image UML WorkerSocket"](./assets/Socket%20rapport%20TP.jpg)
+
 ### Analyse MasterSocket.java
 
 #### Étapes principales dans le code
@@ -244,8 +248,6 @@ définitions, fonctionnement et usages :
 - Effectue le calcul et renvoie le résultat.
 
 ### Analyse WorkerSocket.java
-
-!["Image UML WorkerSocket"](./assets/Worker_Socket.png)
 
 #### Étapes principales du code Worker
 **Configuration du Worker :**
