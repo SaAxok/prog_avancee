@@ -189,6 +189,8 @@ définitions, fonctionnement et usages :
 => Si c'est bien programmé  : montecarlo doit avoir une bonne scalabilité forte et faible. Mais à cause du numérique c'est vite limité
 => Montecralo, analyse des performmances 
 
+--- 
+
 ## Partie 4
 
 => Programmation distribuée
@@ -207,24 +209,24 @@ définitions, fonctionnement et usages :
 ### Analyse MasterSocket.java
 
 #### Étapes principales dans le code
-- **Initialisation des workers** :
-    - Le master demande combien de workers (processus) seront utilisés. Il ouvre un socket (canal de communication) pour chaque worker sur un port donné.
-- **Envoi des tâches aux workers** :
-    - Chaque worker reçoit le nombre total de points à générer pour l'estimation de 𝜋.
+**Initialisation des workers** :
+- Le master demande combien de workers (processus) seront utilisés. Il ouvre un socket (canal de communication) pour chaque worker sur un port donné.
+**Envoi des tâches aux workers** :
+- Chaque worker reçoit le nombre total de points à générer pour l'estimation de 𝜋.
 
-- **Traitement par les workers** :
-    - Les workers génèrent des points aléatoires dans un carré, comptent ceux qui tombent dans un quart de cercle et renvoient leurs résultats au master.
+**Traitement par les workers** :
+- Les workers génèrent des points aléatoires dans un carré, comptent ceux qui tombent dans un quart de cercle et renvoient leurs résultats au master.
 
-- **Récupération des résultats** :
-    - Le master collecte les résultats des workers via leurs sockets respectifs.
-    - Il combine ces résultats pour calculer la valeur approximative de 𝜋.
+**Récupération des résultats** :
+- Le master collecte les résultats des workers via leurs sockets respectifs.
+- Il combine ces résultats pour calculer la valeur approximative de 𝜋.
 
-- **Affichage des résultats** :
-    - Le master affiche 𝜋, l'erreur relative, et les statistiques de performance (durée, nombre de points, etc.).
-    - L'utilisateur peut choisir de répéter la simulation.
+**Affichage des résultats** :
+- Le master affiche 𝜋, l'erreur relative, et les statistiques de performance (durée, nombre de points, etc.).
+- L'utilisateur peut choisir de répéter la simulation.
 
-- **Fermeture des sockets** :
-    - Une fois la simulation terminée, les sockets entre le master et les workers sont fermés proprement.
+**Fermeture des sockets** :
+- Une fois la simulation terminée, les sockets entre le master et les workers sont fermés proprement.
 
 #### Sockets : 
 - **Socket côté master** : Utilisé pour envoyer des tâches et recevoir des résultats.
@@ -240,3 +242,30 @@ définitions, fonctionnement et usages :
 - Écoute sur un port spécifique.
 - Reçoit les données envoyées par le master.
 - Effectue le calcul et renvoie le résultat.
+
+### Analyse WorkerSocket.java
+
+!["Image UML WorkerSocket"](./assets/Worker_Socket.png)
+
+#### Étapes principales du code Worker
+**Configuration du Worker :**
+- Le Worker démarre un serveur socket sur un port donné (par défaut 25545 ou spécifié en argument).
+- Il attend une connexion entrante du Master via le socket.
+
+**Communication avec le Master :**
+- Une fois connecté, le Worker écoute les messages du Master en utilisant un flux d'entrée (BufferedReader).
+- Après avoir reçu les données, il effectue le calcul nécessaire.
+
+**Envoi des résultats au Master :**
+- Le Worker utilise un flux de sortie (PrintWriter) pour renvoyer les résultats du calcul au Master.
+
+**Gestion des messages et fin de tâche :**
+- Si le message reçu est "END", le Worker arrête son exécution.
+Sinon, il continue à traiter les données envoyées par le Master.
+
+#### Flux de communication entre Master et Worker
+**Côté Master :**
+- **Client socket :** Le Master initie la connexion et envoie des tâches aux Workers. Le Master attend les réponses des Workers pour agréger les résultats.
+
+**Côté Worker :**
+- **Serveur socket :** Le Worker accepte les connexions du Master. Chaque message reçu est interprété comme une instruction (par exemple, combien de points générer pour la méthode Monte Carlo). Une fois le calcul terminé, le résultat est renvoyé au Master.
