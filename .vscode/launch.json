@@ -1,0 +1,43 @@
+{
+    // Utilisez IntelliSense pour en savoir plus sur les attributs possibles.
+    // Pointez pour afficher la description des attributs existants.
+    // Pour plus d'informations, visitez : https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "MasterSocket",
+            "request": "launch",
+            "mainClass": "MasterSocket",
+            "projectName": "prog_avancee_448db743"
+        },
+        {
+            "type": "java",
+            "name": "Pi",
+            "request": "launch",
+            "mainClass": "Pi",
+            "projectName": "prog_avancee_448db743"
+        },
+        {
+            "type": "java",
+            "name": "WorkerSocket",
+            "request": "launch",
+            "mainClass": "WorkerSocket",
+            "projectName": "prog_avancee_448db743",
+            "args": "${command:SpecifyProgramArgs}"
+        },
+        {
+            "type": "java",
+            "name": "Assignment102",
+            "request": "launch",
+            "mainClass": "assignments.Assignment102",
+            "projectName": "prog_avancee_448db743"
+        }
+    ]
+}
