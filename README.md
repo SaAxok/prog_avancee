@@ -271,3 +271,7 @@ Sinon, il continue à traiter les données envoyées par le Master.
 
 **Côté Worker :**
 - **Serveur socket :** Le Worker accepte les connexions du Master. Chaque message reçu est interprété comme une instruction (par exemple, combien de points générer pour la méthode Monte Carlo). Une fois le calcul terminé, le résultat est renvoyé au Master.
+
+## MonteCarlo Master/Worker Socket
+
+=> expliquer les changements apportés pour calculer PI et établir les communnications M/W
