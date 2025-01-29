@@ -275,3 +275,11 @@ Sinon, il continue à traiter les données envoyées par le Master.
 ## MonteCarlo Master/Worker Socket
 
 => expliquer les changements apportés pour calculer PI et établir les communnications M/W
+
+
+---
+
+Etude scalabilité
+On choisi le nombre d'essai, dans une bonne échelle pour pouvoir mesurer le temps.
+On test avec plusieurs workers
+on compare les résultats

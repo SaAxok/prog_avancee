@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Assignment102",
+            "request": "launch",
+            "mainClass": "Assignment102",
+            "projectName": "prog_avancee_448db743"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"

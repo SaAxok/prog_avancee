@@ -1,3 +1,35 @@
-Approx value: 3.136456, Difference to exact value of pi: -0.005136653589793205, Error: -0.1635047619532635 %, Available processors: 8, Time Duration: 124ms, nThrows: 
-Approx value: 3.142928, Difference to exact value of pi: 0.001335346410206828, Error: 0.04250539638488689 %, Available processors: 8, Time Duration: 89ms, nThrows: 
-Relative err : 8.227207899915663E-4, Ntot : 500000, Available processors: 8, Time Duration: 104ms, 
+12x1e6
+
+Relative err : 1.2731979197543077E-4, Ntot : 12000000, Workers : 1, Time Duration: 456ms, 
+Relative err : 1.816977308651292E-4, Ntot : 24000000, Workers : 2, Time Duration: 436ms, 
+Relative err : 8.675296536945295E-5, Ntot : 36000000, Workers : 3, Time Duration: 452ms, 
+Relative err : 2.4195713848169782E-5, Ntot : 48000000, Workers : 4, Time Duration: 465ms,
+Relative err : 8.658845242010145E-7, Ntot : 120000000, Workers : 10, Time Duration: 691ms, 
+
+12x1e7
+
+Relative err : 2.2876686823763594E-6, Ntot : 120000000, Workers : 1, Time Duration: 4252ms, 
+Relative err : 3.9851255083583266E-5, Ntot : 240000000, Workers : 2, Time Duration: 4272ms, 
+Relative err : 1.1914774351318853E-5, Ntot : 360000000, Workers : 3, Time Duration: 4335ms, 
+Relative err : 1.3905979528153765E-5, Ntot : 480000000, Workers : 4, Time Duration: 4400ms, 
+Relative err : 1.7915459793765E-5, Ntot : 1200000000, Workers : 10, Time Duration: 6271ms, 
+
+12x1e3
+
+Relative err : 0.004857192494075772, Ntot : 12000, Workers : 1, Time Duration: 4ms, 
+Relative err : 2.1454502578610796E-4, Ntot : 120000, Workers : 10, Time Duration: 12ms, 
+
+12x2e3
+
+Relative err : 0.005222620568410954, Ntot : 20000, Workers : 1, Time Duration: 3ms, 
+Relative err : 0.001035351793962233, Ntot : 200000, Workers : 10, Time Duration: 31ms,
+
+2000, 5000, 10000, 15000, 20000
+
+Relative err : 0.006873155106573032, Ntot : 2000, Workers : 1, Time Duration: 2ms, 
+Relative err : 0.012220761194460692, Ntot : 5000, Workers : 1, Time Duration: 3ms, 
+Relative err : 0.0062365353342055205, Ntot : 10000, Workers : 1, Time Duration: 3ms, 
+Relative err : 0.006788272470257364, Ntot : 15000, Workers : 1, Time Duration: 4ms, 
+Relative err : 0.004395014864333189, Ntot : 20000, Workers : 1, Time Duration: 4ms, 
+
+=> On remarque que le nombre d'essai est trop petit pour observer une réelle différence de temps
