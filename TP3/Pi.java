@@ -17,7 +17,7 @@ public class Pi {
 	public static void main(String[] args) throws Exception {
 		long total = 0;
 		// 10 workers, 50000 iterations each
-		total = new Master().doRun(20000, 1);
+		total = new Master().doRun(12000000, Integer.parseInt(args[0]));
 		System.out.println("total from Master = " + total);
 	}
 }
@@ -36,7 +36,7 @@ class Master {
 		// Create a collection of tasks
 		List<Callable<Long>> tasks = new ArrayList<Callable<Long>>(); // collection de tache qui renvoie un résultat
 		for (int i = 0; i < numWorkers; ++i) {
-			tasks.add(new Worker(totalCount));
+			tasks.add(new Worker(totalCount / numWorkers));
 		}
 
 		// Run them and receive a collection of Futures
@@ -57,7 +57,7 @@ class Master {
 		System.out.println("\nPi : " + pi);
 		System.out.println("Error: " + (Math.abs((pi - Math.PI)) / Math.PI) + "\n");
 
-		System.out.println("Ntot: " + totalCount * numWorkers);
+		System.out.println("Ntot: " + totalCount / numWorkers);
 		System.out.println("Available processors: " + numWorkers);
 		System.out.println("Time Duration (ms): " + (stopTime - startTime) + "\n");
 
@@ -65,12 +65,8 @@ class Master {
 				+ (stopTime - startTime));
 
 		try {
-			FileWriter writer = new FileWriter("TP3/out-pi-mac.txt", true);
-			writer.write("Relative err : " + (Math.abs(pi - Math.PI) / Math.PI) + ", " +
-					"Ntot : " + totalCount * numWorkers + ", " +
-					"Workers : " + numWorkers + ", " +
-					"Time Duration: " + (stopTime - startTime) + "ms, " +
-					"\n");
+			FileWriter writer = new FileWriter("out-pi-G26-16.txt", true);
+			writer.write((Math.abs(pi - Math.PI) / Math.PI) + ", " + totalCount / numWorkers + ", " + numWorkers + ", " + (stopTime - startTime) + "\n");
 			writer.close();
 		} catch (IOException e) {
 			System.out.println("An error occurred while writing to the file.");

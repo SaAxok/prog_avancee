@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Pi",
+            "request": "launch",
+            "mainClass": "Pi",
+            "projectName": "prog_avancee_56bf441d"
+        },
+        {
+            "type": "java",
             "name": "Assignment102",
             "request": "launch",
             "mainClass": "Assignment102",
