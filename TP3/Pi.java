@@ -65,8 +65,9 @@ class Master {
 				+ (stopTime - startTime));
 
 		try {
-			FileWriter writer = new FileWriter("out-pi-G26-16.txt", true);
-			writer.write((Math.abs(pi - Math.PI) / Math.PI) + ", " + totalCount / numWorkers + ", " + numWorkers + ", " + (stopTime - startTime) + "\n");
+			FileWriter writer = new FileWriter("out-pi-speedup-mac.txt", true);
+			writer.write((Math.abs(pi - Math.PI) / Math.PI) + ", " + totalCount / numWorkers + ", " + numWorkers + ", "
+					+ (stopTime - startTime) + "\n");
 			writer.close();
 		} catch (IOException e) {
 			System.out.println("An error occurred while writing to the file.");

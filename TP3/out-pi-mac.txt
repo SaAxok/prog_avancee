@@ -32,4 +32,4 @@ Relative err : 0.0062365353342055205, Ntot : 10000, Workers : 1, Time Duration: 
 Relative err : 0.006788272470257364, Ntot : 15000, Workers : 1, Time Duration: 4ms, 
 Relative err : 0.004395014864333189, Ntot : 20000, Workers : 1, Time Duration: 4ms, 
 
-=> On remarque que le nombre d'essai est trop petit pour observer une réelle différence de temps
+=> On remarque que le nombre d'essai est trop petit pour observer une réelle différence de temps1.8844361511892267E-4, 12000000, 1, 391

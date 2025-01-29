@@ -7,7 +7,7 @@ for workers in [1, 2, 3, 4, 5, 6, 8, 10, 12]:
         os.system(f"java Pi.java {workers}")
         print(" ")
 
-with open("./out-pi-G26-16.txt", 'r') as file:
+with open("./out-pi-speedup-mac.txt", 'r') as file:
     lines = file.readlines()
 
 # Parsing
