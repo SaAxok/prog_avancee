@@ -17,7 +17,7 @@ public class Pi {
 	public static void main(String[] args) throws Exception {
 		long total = 0;
 		// 10 workers, 50000 iterations each
-		total = new Master().doRun(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
+		total = new Master().doRun(12000000, Integer.parseInt(args[0]));
 		System.out.println("total from Master = " + total);
 	}
 }
@@ -36,7 +36,7 @@ class Master {
 		// Create a collection of tasks
 		List<Callable<Long>> tasks = new ArrayList<Callable<Long>>(); // collection de tache qui renvoie un résultat
 		for (int i = 0; i < numWorkers; ++i) {
-			tasks.add(new Worker(totalCount));
+			tasks.add(new Worker(totalCount / numWorkers));
 		}
 
 		// Run them and receive a collection of Futures
@@ -65,7 +65,7 @@ class Master {
 				+ (stopTime - startTime));
 
 		try {
-			FileWriter writer = new FileWriter("out-pi-speedup-mac.txt", true);
+			FileWriter writer = new FileWriter("out-pi-speedup-fort-mac.txt", true);
 			writer.write((Math.abs(pi - Math.PI) / Math.PI) + ", " + totalCount / numWorkers + ", " + numWorkers + ", "
 					+ (stopTime - startTime) + "\n");
 			writer.close();
