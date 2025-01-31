@@ -1,2 +1,0 @@
-Approx value: 3.136456, Difference to exact value of pi: -0.005136653589793205, Error: -0.1635047619532635 %, Available processors: 8, Time Duration: 124ms, nThrows: 
-Approx value: 3.142928, Difference to exact value of pi: 0.001335346410206828, Error: 0.04250539638488689 %, Available processors: 8, Time Duration: 89ms, nThrows: 

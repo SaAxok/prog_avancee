@@ -1,2 +1,0 @@
-Relative err : 0.001092231485290196, Ntot : 500000, Available processors: 8, Time Duration: 37ms,
-Relative err : 0.0011100568389164353, Ntot : 500000, Available processors: 8, Time Duration: 31ms, 
