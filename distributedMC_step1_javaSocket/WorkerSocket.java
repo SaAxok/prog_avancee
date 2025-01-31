@@ -30,26 +30,10 @@ public class WorkerSocket {
         PrintWriter pWrite = new PrintWriter(new BufferedWriter(new OutputStreamWriter(soc.getOutputStream())), true);
         String str;
         while (isRunning) {
-            str = bRead.readLine(); // read message from Master
+            str = bRead.readLine();
             if (!(str.equals("END"))) {
                 System.out.println("Server receives totalCount = " + str);
-
-                // compute
-                int totalCount = Integer.parseInt(str);
-                int successThrows = 0;
-
-                for (int i = 0; i < totalCount; i++) {
-                    double x = Math.random();
-                    double y = Math.random();
-
-                    if (x * x + y * y <= 1) {
-                        successThrows++;
-                    }
-                }
-                String result = String.valueOf(successThrows);
-
-                System.out.println("Computed PI: " + result);
-
+                long result = new Master().doRun(Integer.parseInt(str), 12);
                 pWrite.println(result); // send computed PI to Master
             } else {
                 isRunning = false;

@@ -283,3 +283,11 @@ Etude scalabilité
 On choisi le nombre d'essai, dans une bonne échelle pour pouvoir mesurer le temps.
 On test avec plusieurs workers
 on compare les résultats
+
+On met en place un script qui réalise un graphique de la scalabilité forte de Pi.java, en modifiant le nombre de workers
+On remarque qu'au dela de 8 coeur, le speedup diminue à cause du nombre de coeur de la machine.
+
+TODO : scalabilité faible Pi, scalabitilité forte et faible assignements102
+
+Mise en place des master / worker socket avec Pi.java
+étude de la scalabilité forte en modifiant le nombre de [???]

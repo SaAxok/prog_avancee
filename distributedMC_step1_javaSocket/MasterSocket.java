@@ -39,7 +39,7 @@ public class MasterSocket {
 		}
 
 		for (int i = 0; i < numWorkers; i++) {
-			System.out.println("Enter worker" + i + " port : ");
+			System.out.println("Enter worker" + (i + 1) + " port : ");
 			try {
 				s = bufferRead.readLine();
 				System.out.println("You select " + s);
@@ -80,6 +80,7 @@ public class MasterSocket {
 
 			// compute PI with the result of each workers
 			for (int i = 0; i < numWorkers; i++) {
+				total = 0;
 				total += Integer.parseInt(tab_total_workers[i]);
 			}
 			pi = 4.0 * total / totalCount / numWorkers;
