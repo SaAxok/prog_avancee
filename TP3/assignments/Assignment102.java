@@ -1,3 +1,4 @@
+
 // Estimate the value of Pi using Monte-Carlo Method, using parallel program
 import java.io.File;
 import java.io.FileWriter;
@@ -5,6 +6,7 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
+
 class PiMonteCarlo {
 	AtomicInteger nAtomSuccess;
 	int nThrows;
@@ -20,14 +22,16 @@ class PiMonteCarlo {
 				nAtomSuccess.incrementAndGet();
 		}
 	}
+
 	public PiMonteCarlo(int i, int iProcessors) {
 		this.nAtomSuccess = new AtomicInteger(0);
-		this.nThrows = i;
+		this.nThrows = i / iProcessors;
 		this.value = 0;
 		this.nProcessors = iProcessors;
 	}
+
 	public double getPi() {
-//		int nProcessors = Runtime.getRuntime().availableProcessors();
+		// int nProcessors = Runtime.getRuntime().availableProcessors();
 		ExecutorService executor = Executors.newWorkStealingPool(nProcessors);
 		for (int i = 1; i <= nThrows; i++) {
 			Runnable worker = new MonteCarlo();
@@ -40,6 +44,7 @@ class PiMonteCarlo {
 		return value;
 	}
 }
+
 public class Assignment102 {
 	public static void main(String[] args) {
 		int nTot = Integer.parseInt(args[0]);
@@ -54,14 +59,8 @@ public class Assignment102 {
 		System.out.println("Available processors: " + Runtime.getRuntime().availableProcessors());
 		System.out.println("Time Duration: " + (stopTime - startTime) + "ms");
 		try {
-			FileWriter writer = new FileWriter("TP3/out-assignments102-G26-4c.txt", true);
-			writer.write("Approx value: " + value + ", " +
-						 "Difference to exact value of pi: " + (value - Math.PI) + ", " +
-						 "Error: " + (value - Math.PI) / Math.PI * 100 + " %, " +
-						 "nTot: " + nTot + ", " +
-						 "Available processors: " + nbProcesses + ", " +
-						 "Time Duration: " + (stopTime - startTime) + "ms, " +
-						 "nThrows: " + PiVal.nThrows + "\n");
+			FileWriter writer = new FileWriter("out-assignments102-mac.txt", true);
+			writer.write((value - Math.PI) + " " + nTot + " " + nbProcesses + " " + (stopTime - startTime) + "\n");
 			writer.close();
 		} catch (IOException e) {
 			System.out.println("An error occurred while writing to the file.");
