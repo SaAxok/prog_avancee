@@ -7,15 +7,15 @@ JVM=java
 .java.class:
 	$(JC) $(JFLAGS) $*.java
 
-CLASSES=MasterSocket.java WorkerSocket.java
+CLASSES=TpMobile.java UnMobile.java UneFenetre.java
 
-MAIN=MasterSocket
+MAIN=TpMobile
 
 default:classes
 
 classes: $(CLASSES:.java=.class)
 
-run: $(MAIN).class
+run:$(MAIN).class
 	$(JVM) $(MAIN)
 
 clean:
