@@ -24,7 +24,7 @@
   - [Analyse et Résolution](#analyse-et-résolution)
   - [Ce que j'ai appris](#ce-que-jai-appris)
   - [Conclusion](#conclusion)
-- [TP4 : Concepts avancés et Monte Carlo](#tp4--concepts-avancés-et-monte-carlo)
+- [TP4 (part1): Concepts avancés et Monte Carlo](#tp4--concepts-avancés-et-monte-carlo)
   - [Master / Worker](#master--worker)
   - [Future](#future)
   - [Accélération (Speedup)](#accélération-speedup)
@@ -33,7 +33,7 @@
   - [Work Stealing Pool](#work-stealing-pool)
   - [Application de l'API Concurrent](#application-de-lapi-concurrent)
   - [Analyse des performances de Monte Carlo](#analyse-des-performances-de-monte-carlo)
-- [TP4 : Programmation distribuée](#tp4--programmation-distribuée)
+- [TP4 (part2): Programmation distribuée](#programmation-distribuée)
   - [Master / Worker en distribué](#master--worker-en-distribué)
   - [Analyse des Sockets JAVA](#analyse-des-sockets-java)
     - [Analyse MasterSocket.java](#analyse-mastersocketjava)
@@ -249,7 +249,7 @@ La méthode de Monte Carlo peut bénéficier d'une bonne scalabilité grâce à 
 
 ---
 
-## TP4 : Programmation distribuée
+## Programmation distribuée
 
 ### Master / Worker en distribué
 Dans un environnement distribué, le **master** envoie des messages aux **workers** via un réseau. Les workers exécutent les tâches en parallèle et renvoient les résultats au master.
@@ -327,10 +327,40 @@ Pour calculer π et établir les communications Master/Worker, les changements s
 - Chaque **Worker** génère des points aléatoires et compte ceux qui tombent dans un quart de cercle.
 - Les résultats sont renvoyés au **Master**, qui les agrège pour estimer π.
 
-### Étude de la scalabilité
+### Étude de la Scalabilité
 
 Pour étudier la scalabilité, nous avons choisi un nombre d'essais suffisamment grand pour mesurer le temps d'exécution de manière significative. Nous avons testé avec plusieurs workers et comparé les résultats.
 
-Un script a été mis en place pour réaliser un graphique de la scalabilité forte de `Pi.java`, en modifiant le nombre de workers. Nous avons observé qu'au-delà de 8 cœurs, le speedup diminue en raison des limitations matérielles de la machine.
+#### Pi.java
 
-**TODO :** Étudier la scalabilité faible de `Pi.java`, ainsi que la scalabilité forte et faible de `assignements102`.
+Un script a été mis en place pour réaliser un graphique de la scalabilité forte de Pi.java, en modifiant le nombre de workers. Nous avons observé qu'au-delà de 8 cœurs, le speedup diminue en raison des limitations matérielles de la machine.
+
+- **Parallélisation basée sur un pool de threads fixe :**
+  Le programme utilise `Executors.newFixedThreadPool(numWorkers)` pour créer un pool de `numWorkers` threads, ce qui permet un contrôle efficace du parallélisme en limitant le nombre de threads actifs.
+
+- **Répartition des tâches :**
+  Chaque worker (`Callable<Long>`) exécute une fraction du nombre total d’itérations et renvoie un résultat partiel. L’agrégation des résultats se fait via `Future.get()`, qui agit comme une **barrière implicite** (les résultats sont collectés une fois que tous les threads ont terminé).
+
+- **Avantages de cette approche :**
+  - Les tâches sont bien équilibrées entre les threads (`totalCount / numWorkers` par worker).
+  - L'utilisation de `invokeAll()` garantit que tous les threads travaillent en parallèle avant de récupérer les résultats.
+  - Contrairement à `Assignment102.java`, le programme **réduit le nombre de tâches** en regroupant plusieurs itérations par worker, évitant ainsi la surcharge liée à la gestion d’un trop grand nombre de petites tâches.
+
+- **Limites observées :**
+  - Au-delà de 8 threads, le **speedup diminue** en raison de la saturation des ressources CPU et des coûts de synchronisation.
+  - L’appel `Future.get()` bloque le thread principal jusqu'à ce que tous les workers aient terminé, ce qui peut créer un goulot d’étranglement si certains threads prennent plus de temps que d’autres.
+  - L'utilisation de `Random` par chaque thread peut provoquer une contention si plusieurs threads génèrent des nombres aléatoires en parallèle.
+
+#### Assignments102
+
+Le script précédent a été réutilisé pour `Assignments102.java`. Ce paradigme fonctionne différemment et les mesures révèlent qu'il est moins efficace. Le speedup de la scalabilité forte du code `Assignments102` est proche de la scalabilité faible de `Pi.java`.
+
+- **Trop de tâches créées (1 tâche par point simulé) :**
+  Chaque simulation de point (x, y) est soumise individuellement au pool de threads, ce qui entraîne une surcharge importante sur le gestionnaire de tâches. La création et la gestion d'un grand nombre de threads très courts génèrent un overhead significatif et réduisent l'efficacité globale du programme.
+
+- **Problème de synchronisation sur `AtomicInteger` :**
+  L'utilisation de `AtomicInteger.incrementAndGet()` pour compter les points dans le cercle crée une contention mémoire entre threads. Chaque mise à jour étant atomique, cela ralentit l'accès concurrentiel. Une alternative plus performante serait l'utilisation de `LongAdder`, qui réduit les conflits en répartissant les mises à jour sur plusieurs variables internes.
+
+Globalement, `Pi.java` est mieux parallélisé que `Assignment102.java`, car il minimise la surcharge de création de threads et utilise un **modèle de travail bien équilibré** pour exploiter efficacement les ressources CPU.
+
+TODO : faire un graphe d'erreur TP / P
