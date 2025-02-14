@@ -16,7 +16,6 @@ import java.util.concurrent.Future;
 public class Pi {
 	public static void main(String[] args) throws Exception {
 		long total = 0;
-		// 10 workers, 50000 iterations each
 		total = new Master().doRun(12000000, Integer.parseInt(args[0]));
 		System.out.println("total from Master = " + total);
 	}

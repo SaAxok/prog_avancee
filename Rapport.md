@@ -2,44 +2,64 @@
 
 ## Table des matières
 
-- [Définitions](#définitions)
-  - [Thread](#thread)
-  - [Sémaphore](#sémaphore)
-  - [Ressource critique](#ressource-critique)
-  - [Section critique](#section-critique)
-  - [Programmation parallèle](#programmation-parallèle)
-  - [Programmation partagée](#programmation-partagée)
-  - [Parallélisme de tâches](#parallélisme-de-tâches)
-- [TP1 : Dossier de conception du TP Thread](#tp1--dossier-de-conception-du-tp-thread)
-  - [Exercice 1](#exercice-1)
-  - [Exercice 2](#exercice-2)
-- [TP2 : Affichage synchronisé](#tp2--affichage-synchronisé)
-  - [Sémaphore](#sémaphore-1)
-    - [Outils de Synchronisation](#outils-de-synchronisation)
-    - [Implémentation](#implémentation)
-    - [Exemple : Analogie avec un Phare](#exemple--analogie-avec-un-phare)
-    - [Procédé](#procédé)
+Voici la table des matières mise à jour pour refléter la structure actuelle de votre rapport :
+
+---
+
+# Table des matières
+
+- [Rapport Général](#rapport-général)
+  - [Table des matières](#table-des-matières)
+- [Table des matières](#table-des-matières-1)
+  - [Définitions](#définitions)
+    - [Thread](#thread)
+    - [Sémaphore](#sémaphore)
+    - [Ressource critique](#ressource-critique)
+    - [Section critique](#section-critique)
+    - [Programmation parallèle](#programmation-parallèle)
+    - [Programmation partagée](#programmation-partagée)
+    - [Parallélisme de tâches](#parallélisme-de-tâches)
+  - [TP1 : Dossier de conception du TP Thread](#tp1--dossier-de-conception-du-tp-thread)
+    - [Exercice 1](#exercice-1)
+    - [Exercice 2](#exercice-2)
+  - [TP2 : Affichage synchronisé](#tp2--affichage-synchronisé)
+    - [Sémaphore](#sémaphore-1)
+      - [Outils de Synchronisation](#outils-de-synchronisation)
+      - [Implémentation](#implémentation)
+      - [Exemple : Analogie avec un Phare](#exemple--analogie-avec-un-phare)
+      - [Procédé](#procédé)
     - [Conclusion](#conclusion)
-- [TP3 : Boîte aux lettres](#tp3--boîte-aux-lettres)
-  - [Analyse et Résolution](#analyse-et-résolution)
-  - [Ce que j'ai appris](#ce-que-jai-appris)
-  - [Conclusion](#conclusion)
-- [TP4 : Concepts avancés et Monte Carlo](#tp4--concepts-avancés-et-monte-carlo)
-  - [Master / Worker](#master--worker)
-  - [Future](#future)
-  - [Accélération (Speedup)](#accélération-speedup)
-  - [Scalabilité](#scalabilité)
-  - [Méthode de Monte Carlo](#méthode-de-monte-carlo)
-  - [Work Stealing Pool](#work-stealing-pool)
-  - [Application de l'API Concurrent](#application-de-lapi-concurrent)
-  - [Analyse des performances de Monte Carlo](#analyse-des-performances-de-monte-carlo)
-- [TP4 : Programmation distribuée](#tp4--programmation-distribuée)
-  - [Master / Worker en distribué](#master--worker-en-distribué)
-  - [Analyse des Sockets JAVA](#analyse-des-sockets-java)
-    - [Analyse MasterSocket.java](#analyse-mastersocketjava)
-    - [Analyse WorkerSocket.java](#analyse-workersocketjava)
-  - [Monte Carlo Master/Worker Socket](#monte-carlo-masterworker-socket)
-  - [Étude de la scalabilité](#étude-de-la-scalabilité)
+  - [TP3 : Boîte aux lettres](#tp3--boîte-aux-lettres)
+    - [Analyse et Résolution](#analyse-et-résolution)
+    - [Ce que j'ai appris :](#ce-que-jai-appris-)
+    - [Conclusion](#conclusion-1)
+  - [TP4 : Concepts avancés et Monte Carlo](#tp4--concepts-avancés-et-monte-carlo)
+    - [Master / Worker](#master--worker)
+    - [Future](#future)
+    - [Accélération (Speedup)](#accélération-speedup)
+    - [Scalabilité](#scalabilité)
+    - [Work Stealing Pool](#work-stealing-pool)
+    - [Application de l'API Concurrent](#application-de-lapi-concurrent)
+    - [Méthode de Monte Carlo](#méthode-de-monte-carlo)
+      - [Explication de la Parallélisation par Tâche](#explication-de-la-parallélisation-par-tâche)
+      - [Exemple de Code Parallélisé](#exemple-de-code-parallélisé)
+      - [Explication de la Parallélisation](#explication-de-la-parallélisation)
+      - [Avantages de la Parallélisation par Tâche](#avantages-de-la-parallélisation-par-tâche)
+      - [Conclusion](#conclusion-2)
+    - [Analyse des performances de Monte Carlo](#analyse-des-performances-de-monte-carlo)
+    - [Étude de la Scalabilité](#étude-de-la-scalabilité)
+      - [Pi.java](#pijava)
+      - [Assignments102](#assignments102)
+    - [Comparaison Assignment102 vs Pi](#comparaison-assignment102-vs-pi)
+      - [Différences d'erreurs](#différences-derreurs)
+      - [Différences de paradigmes de programmation](#différences-de-paradigmes-de-programmation)
+      - [Impact sur la Scalabilité](#impact-sur-la-scalabilité)
+  - [Programmation distribuée](#programmation-distribuée)
+    - [Master / Worker en distribué](#master--worker-en-distribué)
+    - [Analyse des Sockets JAVA](#analyse-des-sockets-java)
+    - [Monte Carlo Master/Worker Socket](#monte-carlo-masterworker-socket)
+      - [Analyse MasterSocket.java](#analyse-mastersocketjava)
+      - [Analyse WorkerSocket.java](#analyse-workersocketjava)
 
 ---
 
@@ -249,7 +269,103 @@ La méthode de Monte Carlo peut bénéficier d'une bonne scalabilité grâce à 
 
 ---
 
-## TP4 : Programmation distribuée
+
+### Étude de la Scalabilité
+
+Pour étudier la scalabilité, nous avons choisi un nombre d'essais suffisamment grand pour mesurer le temps d'exécution de manière significative. Nous avons testé avec plusieurs workers et comparé les résultats.
+
+#### Pi.java
+
+Un script a été mis en place pour réaliser un graphique de la scalabilité forte de Pi.java, en modifiant le nombre de workers. Nous avons observé qu'au-delà de 8 cœurs, le speedup diminue en raison des limitations matérielles de la machine.
+
+**Scalabilité forte sur une machine en G26**
+![Scalabilité forte Pi G26](./TP4/results_scalabilite/scal_forte_G26_pi.png)
+
+
+**Scalabilité forte sur mon MacBook M1 pro**
+![Scalabilité forte Pi Mac](./TP4/results_scalabilite/scal_forte_mac_pi.png)
+
+
+**Scalabilité faible sur une machine en G26**
+![Scalabilité faible Pi G26](./TP4/results_scalabilite/scal_faible_G26_pi.png)
+
+
+**Scalabilité faible sur mon MacBook M1 pro**
+![Scalabilité faible Pi Mac](./TP4/results_scalabilite/scal_faible_mac_pi.png)
+
+
+- **Parallélisation basée sur un pool de threads fixe :**
+  Le programme utilise `Executors.newFixedThreadPool(numWorkers)` pour créer un pool de `numWorkers` threads, ce qui permet un contrôle efficace du parallélisme en limitant le nombre de threads actifs.
+
+- **Répartition des tâches :**
+  Chaque worker (`Callable<Long>`) exécute une fraction du nombre total d’itérations et renvoie un résultat partiel. L’agrégation des résultats se fait via `Future.get()`, qui agit comme une **barrière implicite** (les résultats sont collectés une fois que tous les threads ont terminé).
+
+- **Avantages de cette approche :**
+  - Les tâches sont bien équilibrées entre les threads (`totalCount / numWorkers` par worker).
+  - L'utilisation de `invokeAll()` garantit que tous les threads travaillent en parallèle avant de récupérer les résultats.
+  - Contrairement à `Assignment102.java`, le programme **réduit le nombre de tâches** en regroupant plusieurs itérations par worker, évitant ainsi la surcharge liée à la gestion d’un trop grand nombre de petites tâches.
+
+- **Limites observées :**
+  - Au-delà de 8 threads, le **speedup diminue** en raison de la saturation des ressources CPU et des coûts de synchronisation.
+  - L’appel `Future.get()` bloque le thread principal jusqu'à ce que tous les workers aient terminé, ce qui peut créer un goulot d’étranglement si certains threads prennent plus de temps que d’autres.
+  - L'utilisation de `Random` par chaque thread peut provoquer une contention si plusieurs threads génèrent des nombres aléatoires en parallèle.
+
+#### Assignments102
+
+Le script précédent a été réutilisé pour `Assignments102.java`. Ce paradigme fonctionne différemment et les mesures révèlent qu'il est moins efficace. Le speedup de la scalabilité forte du code `Assignments102` est proche de la scalabilité faible de `Pi.java`.
+
+
+**Scalabilité forte sur une machine en G26**
+![Scalabilité forte Assignements102 G26](./TP4/results_scalabilite/)
+
+
+**Scalabilité forte sur mon MacBook M1 pro**
+![Scalabilité forte Assignements102 Mac](./TP4/results_scalabilite/scal_forte_mac_assignments102.png)
+
+
+**Scalabilité faible sur une machine en G26**
+![Scalabilité faible Assignements102 G26](./TP4/results_scalabilite/)
+
+
+**Scalabilité faible sur mon MacBook M1 pro**
+![Scalabilité faible Assignements102 Mac](./TP4/results_scalabilite/)
+
+- **Trop de tâches créées (1 tâche par point simulé) :**
+  Chaque simulation de point (x, y) est soumise individuellement au pool de threads, ce qui entraîne une surcharge importante sur le gestionnaire de tâches. La création et la gestion d'un grand nombre de threads très courts génèrent un overhead significatif et réduisent l'efficacité globale du programme.
+
+- **Problème de synchronisation sur `AtomicInteger` :**
+  L'utilisation de `AtomicInteger.incrementAndGet()` pour compter les points dans le cercle crée une contention mémoire entre threads. Chaque mise à jour étant atomique, cela ralentit l'accès concurrentiel. Une alternative plus performante serait l'utilisation de `LongAdder`, qui réduit les conflits en répartissant les mises à jour sur plusieurs variables internes.
+
+Globalement, `Pi.java` est mieux parallélisé que `Assignment102.java`, car il minimise la surcharge de création de threads et utilise un **modèle de travail bien équilibré** pour exploiter efficacement les ressources CPU.
+
+### Comparaison Assignment102 vs Pi
+
+#### Différences d'erreurs
+L'erreur dans l'estimation de π varie en fonction de la méthode utilisée :
+- **`Assignment102`** : Chaque point généré est traité individuellement, ce qui entraîne une grande variabilité due aux fluctuations aléatoires et aux conflits d'accès sur une variable partagée. La convergence est plus lente et l'erreur plus importante.
+- **`Pi.java`** : La génération de points est répartie en lots et exécutée en parallèle, réduisant l'impact des erreurs aléatoires et améliorant la stabilité de l'estimation de π.
+
+Une analyse des résultats montre que `Pi.java` produit des valeurs plus précises avec une variance plus faible comparée à `Assignment102`.
+
+#### Différences de paradigmes de programmation
+
+1. **Approche `Assignment102` : Parallélisme de fine granularité**
+   - Chaque point aléatoire est traité comme une tâche distincte.
+   - Utilisation intensive de `AtomicInteger` pour la synchronisation, entraînant des ralentissements dus à la contention mémoire.
+   - Nombre très élevé de tâches légères soumises à un gestionnaire de threads, augmentant la surcharge du système.
+
+2. **Approche `Pi.java` : Parallélisme par regroupement de tâches**
+   - Chaque thread traite un bloc d'échantillons, réduisant le nombre de tâches créées.
+   - Synchronisation minimale grâce à l'agrégation locale avant soumission des résultats.
+   - Utilisation optimisée des cœurs processeur avec un pool de threads équilibré.
+
+#### Impact sur la Scalabilité
+- **`Assignment102`** présente une scalabilité limitée en raison du nombre excessif de tâches et de la contention sur `AtomicInteger`.
+- **`Pi.java`** est plus efficace car il minimise les conflits et optimise l'utilisation des ressources CPU.
+
+En conclusion, la méthode `Pi.java` surpasse `Assignment102` en termes d'efficacité et de précision grâce à une meilleure gestion des tâches et une réduction des conflits d'accès concurrentiels.
+
+## Programmation distribuée
 
 ### Master / Worker en distribué
 Dans un environnement distribué, le **master** envoie des messages aux **workers** via un réseau. Les workers exécutent les tâches en parallèle et renvoient les résultats au master.
@@ -257,6 +373,15 @@ Dans un environnement distribué, le **master** envoie des messages aux **worker
 ### Analyse des Sockets JAVA
 
 ![Image UML WorkerSocket](./assets/Socket%20rapport%20TP.jpg)
+
+TODO : refaire diagramme au propre
+
+### Monte Carlo Master/Worker Socket
+
+Pour calculer π et établir les communications Master/Worker, les changements suivants ont été apportés :
+- Le **Master** distribue le nombre total de points à générer aux **Workers**.
+- Chaque **Worker** génère des points aléatoires et compte ceux qui tombent dans un quart de cercle.
+- Les résultats sont renvoyés au **Master**, qui les agrège pour estimer π.
 
 #### Analyse MasterSocket.java
 
@@ -320,17 +445,7 @@ Sinon, il continue à traiter les données envoyées par le Master.
 **Côté Worker :**
 - **Serveur socket :** Le Worker accepte les connexions du Master. Chaque message reçu est interprété comme une instruction (par exemple, combien de points générer pour la méthode Monte Carlo). Une fois le calcul terminé, le résultat est renvoyé au Master.
 
-### Monte Carlo Master/Worker Socket
 
-Pour calculer π et établir les communications Master/Worker, les changements suivants ont été apportés :
-- Le **Master** distribue le nombre total de points à générer aux **Workers**.
-- Chaque **Worker** génère des points aléatoires et compte ceux qui tombent dans un quart de cercle.
-- Les résultats sont renvoyés au **Master**, qui les agrège pour estimer π.
 
-### Étude de la scalabilité
 
-Pour étudier la scalabilité, nous avons choisi un nombre d'essais suffisamment grand pour mesurer le temps d'exécution de manière significative. Nous avons testé avec plusieurs workers et comparé les résultats.
-
-Un script a été mis en place pour réaliser un graphique de la scalabilité forte de `Pi.java`, en modifiant le nombre de workers. Nous avons observé qu'au-delà de 8 cœurs, le speedup diminue en raison des limitations matérielles de la machine.
-
-**TODO :** Étudier la scalabilité faible de `Pi.java`, ainsi que la scalabilité forte et faible de `assignements102`.
+TODO : faire un graphe d'erreur TP / P et scal faible assignments102
