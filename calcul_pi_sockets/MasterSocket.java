@@ -26,7 +26,7 @@ public class MasterSocket {
 		String s; // for bufferRead
 
 		System.out.println("#########################################");
-		System.out.println("# Computation of PI by MC method        #");
+		System.out.println("#    Computation of PI by MC method     #");
 		System.out.println("#########################################");
 
 		System.out.println("\n How many workers for computing PI (< maxServer): ");
