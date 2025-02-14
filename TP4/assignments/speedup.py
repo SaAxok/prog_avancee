@@ -8,7 +8,7 @@ for workers in [1, 2, 3, 4, 5, 6, 8, 10, 12]:
        os.system(f"java Assignment102.java {ntot} {workers}")
        print(" ")
 
-with open("./out-assignments102-mac.txt", 'r') as file:
+with open("./out-assignments102-G26.txt", 'r') as file:
     lines = file.readlines()
 
 # Parsing
@@ -34,6 +34,7 @@ plt.figure()
 plt.plot(workers, speedup, marker='o', label='Observed Speedup')
 plt.plot(workers, workers, 'r--', label='Ideal Linear Speedup')  # Courbe idéale en pointillé
 plt.xticks(range(1, 13)) 
+plt.yticks(range(1, 13)) 
 plt.xlabel('Number of Workers')
 plt.ylabel('Speedup')
 plt.title('Speedup vs Number of Workers')

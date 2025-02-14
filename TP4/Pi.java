@@ -36,7 +36,7 @@ class Master {
 		// Create a collection of tasks
 		List<Callable<Long>> tasks = new ArrayList<Callable<Long>>(); // collection de tache qui renvoie un résultat
 		for (int i = 0; i < numWorkers; ++i) {
-			tasks.add(new Worker(totalCount / numWorkers));
+			tasks.add(new Worker(totalCount));
 		}
 
 		// Run them and receive a collection of Futures
@@ -65,7 +65,7 @@ class Master {
 				+ (stopTime - startTime));
 
 		try {
-			FileWriter writer = new FileWriter("out-pi-speedup-fort-mac.txt", true);
+			FileWriter writer = new FileWriter("out-pi-speedup-G26.txt", true);
 			writer.write((Math.abs(pi - Math.PI) / Math.PI) + ", " + totalCount / numWorkers + ", " + numWorkers + ", "
 					+ (stopTime - startTime) + "\n");
 			writer.close();
