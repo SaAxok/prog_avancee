@@ -392,4 +392,4 @@ En conclusion, la méthode `Pi.java` surpasse `Assignment102` en termes d'effica
 
 
 
-TODO : faire un graphe d'erreur TP / P
+TODO : faire un graphe d'erreur TP / P et scal faible assignments102
