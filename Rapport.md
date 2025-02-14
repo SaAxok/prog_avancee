@@ -363,4 +363,33 @@ Le script précédent a été réutilisé pour `Assignments102.java`. Ce paradig
 
 Globalement, `Pi.java` est mieux parallélisé que `Assignment102.java`, car il minimise la surcharge de création de threads et utilise un **modèle de travail bien équilibré** pour exploiter efficacement les ressources CPU.
 
+### Comparaison Assignment102 vs Pi
+
+#### Différences d'erreurs
+L'erreur dans l'estimation de π varie en fonction de la méthode utilisée :
+- **`Assignment102`** : Chaque point généré est traité individuellement, ce qui entraîne une grande variabilité due aux fluctuations aléatoires et aux conflits d'accès sur une variable partagée. La convergence est plus lente et l'erreur plus importante.
+- **`Pi.java`** : La génération de points est répartie en lots et exécutée en parallèle, réduisant l'impact des erreurs aléatoires et améliorant la stabilité de l'estimation de π.
+
+Une analyse des résultats montre que `Pi.java` produit des valeurs plus précises avec une variance plus faible comparée à `Assignment102`.
+
+#### Différences de paradigmes de programmation
+
+1. **Approche `Assignment102` : Parallélisme de fine granularité**
+   - Chaque point aléatoire est traité comme une tâche distincte.
+   - Utilisation intensive de `AtomicInteger` pour la synchronisation, entraînant des ralentissements dus à la contention mémoire.
+   - Nombre très élevé de tâches légères soumises à un gestionnaire de threads, augmentant la surcharge du système.
+
+2. **Approche `Pi.java` : Parallélisme par regroupement de tâches**
+   - Chaque thread traite un bloc d'échantillons, réduisant le nombre de tâches créées.
+   - Synchronisation minimale grâce à l'agrégation locale avant soumission des résultats.
+   - Utilisation optimisée des cœurs processeur avec un pool de threads équilibré.
+
+#### Impact sur la Scalabilité
+- **`Assignment102`** présente une scalabilité limitée en raison du nombre excessif de tâches et de la contention sur `AtomicInteger`.
+- **`Pi.java`** est plus efficace car il minimise les conflits et optimise l'utilisation des ressources CPU.
+
+En conclusion, la méthode `Pi.java` surpasse `Assignment102` en termes d'efficacité et de précision grâce à une meilleure gestion des tâches et une réduction des conflits d'accès concurrentiels.
+
+
+
 TODO : faire un graphe d'erreur TP / P
