@@ -10,4 +10,5 @@
 ![illustration progammation paratgee](./assets/Illustration_Programmation_Parallèle.webp)
 
 ---
-[Vous trouverez le rapport général ici](Rapport.md)
+[Vous trouverez la première partie du rapport général ici](Rapport_part1.md)
+[Et la deuxième partie du rapport général ici](Rapport_part2.md)
