@@ -2,15 +2,8 @@
 
 ## Table des matières
 
-Voici la table des matières mise à jour pour refléter la structure actuelle de votre rapport :
-
----
-
-# Table des matières
-
 - [Rapport Général](#rapport-général)
   - [Table des matières](#table-des-matières)
-- [Table des matières](#table-des-matières-1)
   - [Définitions](#définitions)
     - [Thread](#thread)
     - [Sémaphore](#sémaphore)
@@ -61,8 +54,6 @@ Voici la table des matières mise à jour pour refléter la structure actuelle d
       - [Analyse MasterSocket.java](#analyse-mastersocketjava)
       - [Analyse WorkerSocket.java](#analyse-workersocketjava)
 
----
-
 ## Définitions
 
 ### Thread
@@ -88,8 +79,6 @@ La **programmation partagée** implique l'utilisation d'une mémoire unique acce
 ### Parallélisme de tâches
 Le **parallélisme de tâches** correspond à l'exécution simultanée de tâches différentes. Contrairement au parallélisme de données, chaque tâche effectue une opération distincte et indépendante.
 
----
-
 ## TP1 : Dossier de conception du TP Thread
 
 ### Exercice 1
@@ -113,8 +102,6 @@ La manipulation de fenêtres avec `JFrame`, notamment :
 - La gestion de la visibilité (`setVisible`).
 - L'ajout de composants dynamiques (comme `UnMobile`).
 - L'utilisation de threads pour animer les composants.
-
----
 
 ## TP2 : Affichage synchronisé
 
@@ -141,8 +128,6 @@ Un sémaphore unique contrôle l'accès au deuxième tiers d'une fenêtre, divis
 ### Conclusion
 Les sémaphores simplifient la synchronisation des threads mais nécessitent une implémentation soignée pour éviter les interblocages et préserver les performances.
 
----
-
 ## TP3 : Boîte aux lettres
 
 ### Analyse et Résolution
@@ -151,7 +136,7 @@ La **BAL (Boîte aux Lettres)** est une file circulaire utilisée pour un modèl
 
 Dans ce TP, j’ai structuré la solution autour de la classe **BAL**, qui encapsule l’interface **`BlockingQueue`** et simplifie son utilisation. La **BAL** agit comme un point central de communication entre les threads producteurs et consommateurs. Elle masque les détails complexes de synchronisation, en utilisant une instance concrète de **`ArrayBlockingQueue`** comme tampon circulaire.
 
-Cette organisation permet une séparation claire des responsabilités : les producteurs et consommateurs interagissent uniquement avec la **BAL** via des méthodes dédiées (deposer et retirer), tandis que la gestion des accès concurrents est entièrement confiée à l’implémentation sous-jacente de la **`BlockingQueue`**. Cette approche favorise la modularité, la lisibilité, la portabilité et la maintenance du code.
+Cette organisation permet une séparation claire des responsabilités : les producteurs et consommateurs interagissent uniquement avec la **BAL** via des méthodes dédiées (déposer et retirer), tandis que la gestion des accès concurrents est entièrement confiée à l’implémentation sous-jacente de la **`BlockingQueue`**. Cette approche favorise la modularité, la lisibilité, la portabilité et la maintenance du code.
 
 ### Ce que j'ai appris :
 1. **Gestion simplifiée des threads** :
@@ -168,8 +153,6 @@ Cette organisation permet une séparation claire des responsabilités : les prod
 ### Conclusion
 
 Ce TP illustre les avantages des outils de synchronisation modernes, comme **`BlockingQueue`**, pour gérer efficacement la concurrence, prévenir les blocages et simplifier le code.
-
----
 
 ## TP4 : Concepts avancés et Monte Carlo
 
@@ -214,7 +197,7 @@ La parallélisation par tâche est une technique utilisée pour améliorer les p
 
 #### Exemple de Code Parallélisé
 
-Voici un exemple de parallélisation par tâche pour le calcul de PI avec la méthode de Monte Carlo, utilisant l'api concurrent :
+Voici un exemple de parallélisation par tâche pour le calcul de PI avec la méthode de Monte Carlo, utilisant l'API concurrent :
 
 ```python
 import concurrent.futures
@@ -239,18 +222,18 @@ def monte_carlo_pi(num_samples, num_tasks):
 
 #### Explication de la Parallélisation
 **Décomposition en Tâches :**
-- La fonction monte_carlo_task représente une tâche individuelle. Elle prend un nombre d'échantillons (num_samples) et compte combien de ces échantillons tombent à l'intérieur d'un cercle unité.
-- La fonction monte_carlo_pi divise le nombre total d'échantillons (num_samples) en plusieurs tâches (num_tasks). Chaque tâche traite un sous-ensemble des échantillons.
+- La fonction `monte_carlo_task` représente une tâche individuelle. Elle prend un nombre d'échantillons (`num_samples`) et compte combien de ces échantillons tombent à l'intérieur d'un cercle unité.
+- La fonction `monte_carlo_pi` divise le nombre total d'échantillons (`num_samples`) en plusieurs tâches (`num_tasks`). Chaque tâche traite un sous-ensemble des échantillons.
 
 **Exécution Parallèle :**
-- ProcessPoolExecutor : La bibliothèque concurrent.futures est utilisée pour créer un pool de processus (ProcessPoolExecutor). Cela permet d'exécuter plusieurs tâches en parallèle sur plusieurs processeurs ou cœurs.
-- submit : La méthode executor.submit soumet chaque tâche (monte_carlo_task) au pool de processus. Chaque tâche est exécutée de manière indépendante et en parallèle.
-- futures : Les objets future représentent les tâches en cours d'exécution. Ils permettent de récupérer les résultats une fois que les tâches sont terminées.
+- **ProcessPoolExecutor** : La bibliothèque `concurrent.futures` est utilisée pour créer un pool de processus (`ProcessPoolExecutor`). Cela permet d'exécuter plusieurs tâches en parallèle sur plusieurs processeurs ou cœurs.
+- **submit** : La méthode `executor.submit` soumet chaque tâche (`monte_carlo_task`) au pool de processus. Chaque tâche est exécutée de manière indépendante et en parallèle.
+- **futures** : Les objets `future` représentent les tâches en cours d'exécution. Ils permettent de récupérer les résultats une fois que les tâches sont terminées.
 
 **Synchronisation et Agrégation :**
-- as_completed : La méthode concurrent.futures.as_completed permet de récupérer les résultats des tâches au fur et à mesure qu'elles se terminent.
-- result : La méthode future.result() récupère le résultat de chaque tâche. Les résultats sont ensuite agrégés pour obtenir le nombre total de points à l'intérieur du cercle.
-- Calcul Final : Le résultat final est calculé en utilisant la formule de Monte Carlo pour estimer π.
+- **as_completed** : La méthode `concurrent.futures.as_completed` permet de récupérer les résultats des tâches au fur et à mesure qu'elles se terminent.
+- **result** : La méthode `future.result()` récupère le résultat de chaque tâche. Les résultats sont ensuite agrégés pour obtenir le nombre total de points à l'intérieur du cercle.
+- **Calcul Final** : Le résultat final est calculé en utilisant la formule de Monte Carlo pour estimer π.
 
 #### Avantages de la Parallélisation par Tâche
 
@@ -262,13 +245,8 @@ def monte_carlo_pi(num_samples, num_tasks):
 
 La parallélisation par tâche est une technique puissante pour améliorer les performances des simulations de Monte Carlo en tirant parti des architectures multi-cœurs modernes. En décomposant le problème en tâches indépendantes et en les exécutant en parallèle, on peut obtenir des résultats plus rapidement et de manière plus efficace.
 
-
 ### Analyse des performances de Monte Carlo
 La méthode de Monte Carlo peut bénéficier d'une bonne scalabilité grâce à son parallélisme naturel. Cependant, les limitations numériques et matérielles peuvent rapidement limiter les gains de performance.
-
-
----
-
 
 ### Étude de la Scalabilité
 
@@ -281,18 +259,14 @@ Un script a été mis en place pour réaliser un graphique de la scalabilité fo
 **Scalabilité forte sur une machine en G26**
 ![Scalabilité forte Pi G26](./TP4/results_scalabilite/scal_forte_G26_pi.png)
 
-
 **Scalabilité forte sur mon MacBook M1 pro**
 ![Scalabilité forte Pi Mac](./TP4/results_scalabilite/scal_forte_mac_pi.png)
-
 
 **Scalabilité faible sur une machine en G26**
 ![Scalabilité faible Pi G26](./TP4/results_scalabilite/scal_faible_G26_pi.png)
 
-
 **Scalabilité faible sur mon MacBook M1 pro**
 ![Scalabilité faible Pi Mac](./TP4/results_scalabilite/scal_faible_mac_pi.png)
-
 
 - **Parallélisation basée sur un pool de threads fixe :**
   Le programme utilise `Executors.newFixedThreadPool(numWorkers)` pour créer un pool de `numWorkers` threads, ce qui permet un contrôle efficace du parallélisme en limitant le nombre de threads actifs.
@@ -314,21 +288,17 @@ Un script a été mis en place pour réaliser un graphique de la scalabilité fo
 
 Le script précédent a été réutilisé pour `Assignments102.java`. Ce paradigme fonctionne différemment et les mesures révèlent qu'il est moins efficace. Le speedup de la scalabilité forte du code `Assignments102` est proche de la scalabilité faible de `Pi.java`.
 
-
 **Scalabilité forte sur une machine en G26**
-![Scalabilité forte Assignements102 G26](./TP4/results_scalabilite/)
-
+![Scalabilité forte Assignments102 G26](./TP4/results_scalabilite/)
 
 **Scalabilité forte sur mon MacBook M1 pro**
-![Scalabilité forte Assignements102 Mac](./TP4/results_scalabilite/scal_forte_mac_assignments102.png)
-
+![Scalabilité forte Assignments102 Mac](./TP4/results_scalabilite/scal_forte_mac_assignments102.png)
 
 **Scalabilité faible sur une machine en G26**
-![Scalabilité faible Assignements102 G26](./TP4/results_scalabilite/)
-
+![Scalabilité faible Assignments102 G26](./TP4/results_scalabilite/)
 
 **Scalabilité faible sur mon MacBook M1 pro**
-![Scalabilité faible Assignements102 Mac](./TP4/results_scalabilite/)
+![Scalabilité faible Assignments102 Mac](./TP4/results_scalabilite/)
 
 - **Trop de tâches créées (1 tâche par point simulé) :**
   Chaque simulation de point (x, y) est soumise individuellement au pool de threads, ce qui entraîne une surcharge importante sur le gestionnaire de tâches. La création et la gestion d'un grand nombre de threads très courts génèrent un overhead significatif et réduisent l'efficacité globale du programme.
@@ -372,9 +342,7 @@ Dans un environnement distribué, le **master** envoie des messages aux **worker
 
 ### Analyse des Sockets JAVA
 
-![Image UML WorkerSocket](./assets/Socket%20rapport%20TP.jpg)
-
-TODO : refaire diagramme au propre
+![Image UML WorkerSocket](./assets/MW_Socket_uml.png)
 
 ### Monte Carlo Master/Worker Socket
 
@@ -436,7 +404,7 @@ Pour calculer π et établir les communications Master/Worker, les changements s
 
 **Gestion des messages et fin de tâche :**
 - Si le message reçu est "END", le Worker arrête son exécution.
-Sinon, il continue à traiter les données envoyées par le Master.
+- Sinon, il continue à traiter les données envoyées par le Master.
 
 **Flux de communication entre Master et Worker**
 **Côté Master :**
@@ -444,8 +412,3 @@ Sinon, il continue à traiter les données envoyées par le Master.
 
 **Côté Worker :**
 - **Serveur socket :** Le Worker accepte les connexions du Master. Chaque message reçu est interprété comme une instruction (par exemple, combien de points générer pour la méthode Monte Carlo). Une fois le calcul terminé, le résultat est renvoyé au Master.
-
-
-
-
-TODO : faire un graphe d'erreur TP / P et scal faible assignments102
