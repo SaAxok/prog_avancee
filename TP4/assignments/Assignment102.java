@@ -1,6 +1,5 @@
 
 // Estimate the value of Pi using Monte-Carlo Method, using parallel program
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;

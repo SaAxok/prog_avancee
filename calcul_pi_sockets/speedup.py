@@ -1,7 +1,7 @@
 import os
 import matplotlib.pyplot as plt
 
-with open("./out-pi-socket.txt", 'r') as file:
+with open("./out-pi-socket-forte-G26.txt", 'r') as file:
     lines = file.readlines()
 
 # Parsing
@@ -27,6 +27,7 @@ plt.figure()
 plt.plot(workers, speedup, marker='o', label='Observed Speedup')
 plt.plot(workers, workers, 'r--', label='Ideal Linear Speedup')  # Courbe idéale en pointillé
 plt.xticks(range(1, 13)) 
+plt.yticks(range(1, 13)) 
 plt.xlabel('Number of Workers')
 plt.ylabel('Speedup')
 plt.title('Speedup vs Number of Workers')

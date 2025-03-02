@@ -64,7 +64,7 @@ class Master {
 				+ (stopTime - startTime));
 
 		try {
-			FileWriter writer = new FileWriter("out-pi-speedup-fort-mac.txt", true);
+			FileWriter writer = new FileWriter("out-pi-speedup-G26.txt", true);
 			writer.write((Math.abs(pi - Math.PI) / Math.PI) + ", " + totalCount / numWorkers + ", " + numWorkers + ", "
 					+ (stopTime - startTime) + "\n");
 			writer.close();

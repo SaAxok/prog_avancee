@@ -9,6 +9,20 @@
             "name": "WorkerSocket",
             "request": "launch",
             "mainClass": "WorkerSocket",
+            "projectName": "prog_avancee_56bf441d"
+        },
+        {
+            "type": "java",
+            "name": "MasterSocket",
+            "request": "launch",
+            "mainClass": "MasterSocket",
+            "projectName": "prog_avancee_56bf441d"
+        },
+        {
+            "type": "java",
+            "name": "WorkerSocket",
+            "request": "launch",
+            "mainClass": "WorkerSocket",
             "projectName": "prog_avancee_448db743"
         },
         {

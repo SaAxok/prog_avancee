@@ -33,7 +33,7 @@ public class WorkerSocket {
             str = bRead.readLine();
             if (!(str.equals("END"))) {
                 System.out.println("Server receives totalCount = " + str);
-                long result = new Master().doRun(Integer.parseInt(str), 12);
+                long result = new Master().doRun(Integer.parseInt(str), 1);
                 pWrite.println(result); // send computed PI to Master
             } else {
                 isRunning = false;
