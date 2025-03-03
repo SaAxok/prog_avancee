@@ -299,6 +299,9 @@ Pour calculer π et établir les communications Master/Worker, les changements s
 **Côté Worker :**
 - **Serveur socket :** Le Worker accepte les connexions du Master. Chaque message reçu est interprété comme une instruction (par exemple, combien de points générer pour la méthode Monte Carlo). Une fois le calcul terminé, le résultat est renvoyé au Master.
 
+Pour mettre en place l'architecture distribuée nous devons mettre en communs les adresses IP des machines qui vont servir aux machines à communniquer.
+Ensuite il a fallut adapter le fichier Pi.java et le diviser en faisant un fichier par class afin de permettre une compilation sans erreurs.
+
 ---
 
 ## Références et sources
