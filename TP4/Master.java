@@ -17,7 +17,7 @@ import java.util.concurrent.Future;
  * and aggregates the results.
  */
 public class Master {
-    public long doRun(int totalCount, int numWorkers) throws InterruptedException, ExecutionException {
+    public long doRun(long totalCount, int numWorkers) throws InterruptedException, ExecutionException {
 
         long startTime = System.currentTimeMillis();
 
