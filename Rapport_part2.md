@@ -130,7 +130,7 @@ La méthode de Monte Carlo peut bénéficier d'une bonne scalabilité grâce à 
 
 ### Étude de la Scalabilité
 
-Pour étudier la scalabilité, nous avons choisi un nombre d'essais suffisamment grand pour mesurer le temps d'exécution de manière significative. Nous avons testé avec plusieurs workers et comparé les résultats.
+Pour étudier la scalabilité, nous avons choisi un nombre d'essais suffisamment grand pour mesurer le temps d'exécution de manière significative. Nous avons testé avec plusieurs workers et comparé les résultats. Dans ce cas il s'agissait de 12 millions d'opérations.
 
 #### Pi.java
 
@@ -222,9 +222,7 @@ Dans un environnement distribué, le **master** envoie des messages aux **worker
 
 ### Analyse des Sockets JAVA
 
-![Image UML WorkerSocket](./assets/Socket%20rapport%20TP.jpg)
-
-TODO : refaire diagramme au propre
+![Image UML WorkerSocket](./assets/MW_Socket_UML.png)
 
 ### Monte Carlo Master/Worker Socket
 

@@ -16,6 +16,7 @@
     - [Programmation partagée](#programmation-partagée)
     - [Parallélisme de tâches](#parallélisme-de-tâches)
   - [TP1 : Dossier de conception du TP Thread](#tp1--dossier-de-conception-du-tp-thread)
+    - [Introduction](#introduction)
     - [Exercice 1](#exercice-1)
     - [Exercice 2](#exercice-2)
   - [TP2 : Affichage synchronisé](#tp2--affichage-synchronisé)
@@ -57,6 +58,7 @@ Le **parallélisme de tâches** correspond à l'exécution simultanée de tâche
 
 ## TP1 : Dossier de conception du TP Thread
 
+### Introduction
 ### Exercice 1
 
 **Implémentation :**
