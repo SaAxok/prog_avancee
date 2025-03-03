@@ -2,6 +2,7 @@ package calcul_pi_sockets;
 
 import java.io.*;
 import java.net.*;
+import TP4.Master;
 
 /**
  * Worker is a server. It computes PI by Monte Carlo method and sends
