@@ -7,6 +7,7 @@
 - [Rapport Général - Partie 2](#rapport-général---partie-2)
   - [Table des matières](#table-des-matières)
   - [TP4 : Concepts avancés et Monte Carlo](#tp4--concepts-avancés-et-monte-carlo)
+  - [Objectif](#objectif)
     - [Master / Worker](#master--worker)
     - [Future](#future)
     - [Accélération (Speedup)](#accélération-speedup)
@@ -33,8 +34,12 @@
     - [Monte Carlo Master/Worker Socket](#monte-carlo-masterworker-socket)
       - [Analyse MasterSocket.java](#analyse-mastersocketjava)
       - [Analyse WorkerSocket.java](#analyse-workersocketjava)
+  - [Références et sources](#références-et-sources)
 
 ## TP4 : Concepts avancés et Monte Carlo
+
+## Objectif
+L'objectif de ce TP est d'explorer différentes approches pour calculer π en utilisant la méthode de Monte Carlo. En comparant les paradigmes de programmation de `Pi.java` et `Assignment102`, nous examinons les performances et l'efficacité de la programmation à mémoire partagée et distribuée. Cette étude vise à comprendre comment la parallélisation et la distribution des tâches peuvent optimiser les calculs intensifs, tout en mettant en avant les contraintes liées à la synchronisation et à la gestion des ressources.
 
 ### Master / Worker
 Le modèle **Master/Worker** est une architecture de programmation parallèle où un **master** distribue des tâches à plusieurs **workers**. Le master coordonne les tâches et collecte les résultats, tandis que les workers exécutent les tâches en parallèle.
@@ -213,7 +218,8 @@ Une analyse des résultats montre que `Pi.java` produit des valeurs plus précis
 - **`Assignment102`** présente une scalabilité limitée en raison du nombre excessif de tâches et de la contention sur `AtomicInteger`.
 - **`Pi.java`** est plus efficace car il minimise les conflits et optimise l'utilisation des ressources CPU.
 
-En conclusion, la méthode `Pi.java` surpasse `Assignment102` en termes d'efficacité et de précision grâce à une meilleure gestion des tâches et une réduction des conflits d'accès concurrentiels.
+Lors de la comparaison entre `Pi.java` et `Assignment102`, il est clair que `Pi.java` est plus efficace. `Pi.java` gère mieux les tâches et évite les conflits entre les différentes parties du programme. Pour des projets où il faut bien utiliser les ressources à disposition et obtenir des résultats précis. Cette méthode simplifie la gestion des tâches et assure une bonne coordination, ce qui est très utile quand les ressources sont limitées.  
+En conclusion, la méthode `Pi.java` surpasse `Assignment102` en termes d'efficacité et de précision grâce à une meilleure gestion des tâches et une réduction des conflits d'accès concurrentiels. 
 
 ## Programmation distribuée
 
@@ -295,4 +301,20 @@ Pour calculer π et établir les communications Master/Worker, les changements s
 
 ---
 
-Ces deux rapports couvrent respectivement les concepts fondamentaux et les applications avancées de la programmation parallèle et distribuée.
+## Références et sources
+
+- Cours de Programmation Avancée, T. Dufaud.
+- Cours de José Paumard.
+- Code assignment102 :
+  - Auteur : Karthik Jain (Software Developer, <https://www.krthkj.com>)
+  - Source : <https://gist.github.com/krthkj/9c1868c1f69142c2952683ea91ca2a37>
+- Code Pi :
+  - Auteur : Dr. Steve Kautz, IOWA State University, <https://faculty.sites.iastate.edu/smkautz/>
+
+- Technologies utilisées :
+  - Java + bibliothèques natives - Langage de programmation
+  - IntelliJ IDEA - Environnement de développement intégré
+  - Visual Studio Code - Environnement de développement intégré
+  - Git + GitHub - Gestion de versions et hébergement de code
+  - StarUML, Draw.io - Modélisation UML
+  - librairies python : matplotlib - Réalisation des graphismes
