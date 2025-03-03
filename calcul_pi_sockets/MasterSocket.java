@@ -1,3 +1,5 @@
+package calcul_pi_sockets;
+
 import java.io.*;
 import java.net.*;
 
@@ -7,7 +9,8 @@ import java.net.*;
  */
 public class MasterSocket {
 	static int maxServer = 12;
-	static final int[] tab_port = { 25545, 25546, 25547, 25548, 25549, 25550, 25551, 25552, 25553, 25554, 25555, 25556 };
+	static final int[] tab_port = { 25545, 25546, 25547, 25548, 25549, 25550, 25551, 25552, 25553, 25554, 25555,
+			25556 };
 	static String[] tab_total_workers = new String[maxServer];
 	static final String ip = "127.0.0.1";
 	static BufferedReader[] reader = new BufferedReader[maxServer];
@@ -58,7 +61,7 @@ public class MasterSocket {
 		}
 
 		String message_to_send;
-		message_to_send = String.valueOf(totalCount/numWorkers);
+		message_to_send = String.valueOf(totalCount / numWorkers);
 
 		String message_repeat = "y";
 

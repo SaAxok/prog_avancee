@@ -1,3 +1,5 @@
+package calcul_pi_sockets;
+
 import java.io.*;
 import java.net.*;
 
