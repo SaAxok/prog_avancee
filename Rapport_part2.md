@@ -21,6 +21,7 @@
       - [Avantages de la Parallélisation par Tâche](#avantages-de-la-parallélisation-par-tâche)
       - [Conclusion](#conclusion)
     - [Analyse des performances de Monte Carlo](#analyse-des-performances-de-monte-carlo)
+    - [Architecture](#architecture)
     - [Étude de la Scalabilité](#étude-de-la-scalabilité)
       - [Pi.java](#pijava)
       - [Assignments102](#assignments102)
@@ -146,6 +147,10 @@ La parallélisation par tâche est une technique puissante pour améliorer les p
 
 ### Analyse des performances de Monte Carlo
 La méthode de Monte Carlo peut bénéficier d'une bonne scalabilité grâce à son parallélisme naturel. Cependant, les limitations numériques et matérielles peuvent rapidement limiter les gains de performance.
+
+### Architecture
+
+!["Diagramme UML de l'architecture en mémoire paratgée"](/assets/uml_mem_partagée.png)
 
 ### Étude de la Scalabilité
 
