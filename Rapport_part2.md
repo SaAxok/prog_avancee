@@ -34,6 +34,20 @@
     - [Monte Carlo Master/Worker Socket](#monte-carlo-masterworker-socket)
       - [Analyse MasterSocket.java](#analyse-mastersocketjava)
       - [Analyse WorkerSocket.java](#analyse-workersocketjava)
+    - [Mise en place des mesures en architecture distribuée](#mise-en-place-des-mesures-en-architecture-distribuée)
+  - [Qualité du code](#qualité-du-code)
+    - [Quality in Use](#quality-in-use)
+      - [1. Effectiveness (Efficacité)](#1-effectiveness-efficacité)
+      - [2. Efficiency (Efficience)](#2-efficiency-efficience)
+      - [3. Satisfaction](#3-satisfaction)
+      - [4. Freedom from Risk (Réduction des risques)](#4-freedom-from-risk-réduction-des-risques)
+      - [5. Context Coverage (Couverture du contexte)](#5-context-coverage-couverture-du-contexte)
+    - [Product Quality](#product-quality)
+      - [1. Fonctionnalité](#1-fonctionnalité)
+      - [2. Fiabilité](#2-fiabilité)
+      - [3. Performance et Efficience](#3-performance-et-efficience)
+      - [4. Maintenabilité](#4-maintenabilité)
+      - [5. Sécurité](#5-sécurité)
   - [Références et sources](#références-et-sources)
 
 ## TP4 : Concepts avancés et Monte Carlo
@@ -137,6 +151,8 @@ La méthode de Monte Carlo peut bénéficier d'une bonne scalabilité grâce à 
 
 Pour étudier la scalabilité, nous avons choisi un nombre d'essais suffisamment grand pour mesurer le temps d'exécution de manière significative. Nous avons testé avec plusieurs workers et comparé les résultats. Dans ce cas il s'agissait de 12 millions d'opérations.
 
+En raison de plusieurs contraintes, toutes les mesures souhaitées n'ont pas pu être réalisée comme prévue. Cependant il y en a assez pour illustrer les propos abordés dans cette partie.
+
 #### Pi.java
 
 Un script a été mis en place pour réaliser un graphique de la scalabilité forte de Pi.java, en modifiant le nombre de workers. Nous avons observé qu'au-delà de 8 cœurs, le speedup diminue en raison des limitations matérielles de la machine.
@@ -173,17 +189,11 @@ Un script a été mis en place pour réaliser un graphique de la scalabilité fo
 
 Le script précédent a été réutilisé pour `Assignments102.java`. Ce paradigme fonctionne différemment et les mesures révèlent qu'il est moins efficace. Le speedup de la scalabilité forte du code `Assignments102` est proche de la scalabilité faible de `Pi.java`.
 
-**Scalabilité forte sur une machine en G26**
-![Scalabilité forte Assignments102 G26](./TP4/results_scalabilite/)
-
 **Scalabilité forte sur mon MacBook M1 pro**
 ![Scalabilité forte Assignments102 Mac](./TP4/results_scalabilite/scal_forte_mac_assignments102.png)
 
-**Scalabilité faible sur une machine en G26**
-![Scalabilité faible Assignments102 G26](./TP4/results_scalabilite/)
-
-**Scalabilité faible sur mon MacBook M1 pro**
-![Scalabilité faible Assignments102 Mac](./TP4/results_scalabilite/)
+**Scalabilité faible attendue**
+![Scalabilité faible Assignments102 Mac](./TP4/results_scalabilite/scal_faible_assignemnts102.png)
 
 - **Trop de tâches créées (1 tâche par point simulé) :**
   Chaque simulation de point (x, y) est soumise individuellement au pool de threads, ce qui entraîne une surcharge importante sur le gestionnaire de tâches. La création et la gestion d'un grand nombre de threads très courts génèrent un overhead significatif et réduisent l'efficacité globale du programme.
@@ -196,11 +206,19 @@ Globalement, `Pi.java` est mieux parallélisé que `Assignment102.java`, car il 
 ### Comparaison Assignment102 vs Pi
 
 #### Différences d'erreurs
+
+Malgrès le fait que je n'ai pas gardées mes mesures pour effectuer des graphiques voici ce que j'ai retenu des erreurs liées aux algorithmes:
+
 L'erreur dans l'estimation de π varie en fonction de la méthode utilisée :
 - **`Assignment102`** : Chaque point généré est traité individuellement, ce qui entraîne une grande variabilité due aux fluctuations aléatoires et aux conflits d'accès sur une variable partagée. La convergence est plus lente et l'erreur plus importante.
 - **`Pi.java`** : La génération de points est répartie en lots et exécutée en parallèle, réduisant l'impact des erreurs aléatoires et améliorant la stabilité de l'estimation de π.
 
-Une analyse des résultats montre que `Pi.java` produit des valeurs plus précises avec une variance plus faible comparée à `Assignment102`.
+Cependant on remarque que les deux algorithmes montrent la même tendance générale et possèdent une fiabilité équivalente.
+
+On remarque par ailleurs que l'erreur diminue systématiquement lorsque le nombre de points augmente.  
+
+L'évolution des erreurs montre que les deux algorithmes convergent vers 1 / racine(N), typique de Monte Carlo : plus on ajoute de points, plus l'erreur se réduit, de plus en plus lentement.
+
 
 #### Différences de paradigmes de programmation
 
@@ -299,8 +317,94 @@ Pour calculer π et établir les communications Master/Worker, les changements s
 **Côté Worker :**
 - **Serveur socket :** Le Worker accepte les connexions du Master. Chaque message reçu est interprété comme une instruction (par exemple, combien de points générer pour la méthode Monte Carlo). Une fois le calcul terminé, le résultat est renvoyé au Master.
 
-Pour mettre en place l'architecture distribuée nous devons mettre en communs les adresses IP des machines qui vont servir aux machines à communniquer.
+### Mise en place des mesures en architecture distribuée
+
+Pour mettre en place l'architecture distribuée nous devons mettre en communs les adresses IP des machines qui vont servir aux machines à communniquer.  
+
 Ensuite il a fallut adapter le fichier Pi.java et le diviser en faisant un fichier par class afin de permettre une compilation sans erreurs.
+
+**Calculs**  
+Nous avons un Master qui envoie des requetes à une dizaine de worker.
+
+Chaque worker est une machine indépendante et devra effectuée un total de 2 milliards d'opérations.
+
+Nous utilisons Pi.java en scalabilité faible  pour acalculer un total de 64 milliards de points.
+
+Pour un calcul de 2 milliard de points sur 16 machines avec 4 workers chacunes, nous arrivons à une moyenne de 70 secondes avec 16, 32 et 64 processeurs. On bserve donc une très bonne scalabilité forte.
+
+---
+## Qualité du code  
+La qualité du code est un élément essentiel pour garantir la robustesse, la maintenabilité et l’efficacité d’un projet logiciel. 
+
+La norme **ISO 25010** fait partie de la famille **SQuaRE (Software Quality Requirements and Evaluation)**, un ensemble de normes définissant des modèles de qualité pour les logiciels et les systèmes informatiques. Son objectif est d’aider à évaluer, améliorer et garantir la qualité des logiciels en fournissant des critères précis pour l’analyse des performances, de la fiabilité, de la sécurité et de l'expérience utilisateur.
+
+Selon ces normes, la qualité d’un logiciel est évaluée selon plusieurs caractéristiques principales :
+
+### Quality in Use  
+
+La qualité en usage représente la manière dont le système répond aux attentes des utilisateurs finaux dans un contexte réel. Les critères suivants y sont évalués :  
+
+#### 1. Effectiveness (Efficacité)  
+L'application doit permettre aux utilisateurs d’atteindre leurs objectifs avec précision. Dans notre cas, l’algorithme de Monte Carlo implémenté doit fournir une estimation fiable de π, avec une marge d'erreur minimale. L’efficacité du programme est renforcée par l’utilisation d’une approche parallèle, réduisant ainsi le temps de traitement.  
+
+#### 2. Efficiency (Efficience)  
+Le programme exploite efficacement les ressources disponibles grâce à l'optimisation du parallélisme et à l'architecture Master/Worker. La distribution des calculs sur plusieurs threads et machines améliore significativement la rapidité d'exécution tout en optimisant l'utilisation du CPU et de la mémoire.  
+
+#### 3. Satisfaction  
+L'expérience utilisateur repose sur plusieurs éléments :  
+- **Usefulness (Utilité)** : L’outil répond aux besoins spécifiques de calcul distribué en proposant une solution évolutive et adaptable.  
+- **Trust (Confiance)** : La précision des résultats et la gestion des erreurs réseau garantissent une certaine fiabilité.  
+- **Pleasure & Comfort (Plaisir & Confort)** : L’interface d’utilisation et la facilité de configuration influencent la satisfaction globale des utilisateurs.  
+
+Dans notre cas, le code Assignements102 est bien moins satisfaisant que Pi en raison de son architecture réduisant ses performmances. Quand à la qualité des résultats et de l'interface, les codes sont similaires et ne procure pas de grandes satisfactions en raison d'un résultat approximatif de pi et d'une interface en ligne de commandes.
+
+#### 4. Freedom from Risk (Réduction des risques)  
+- **Economic risk mitigation (Atténuation des risques économiques)** : L'optimisation du code permet une meilleure utilisation des ressources matérielles, réduisant ainsi les coûts d’exploitation.  
+- **Health & safety risk mitigation (Atténuation des risques de santé et sécurité)** : Le programme étant exécuté dans un environnement contrôlé, ces risques sont limités, sauf en cas de surcharge des ressources matérielles qui pourrait engendrer une instabilité du système.  
+- **Environmental risk mitigation (Atténuation des risques environnementaux)** : En optimisant l'efficacité énergétique des calculs, l'application contribue à une réduction de la consommation électrique, particulièrement dans un contexte de calcul intensif.  
+
+Nous n'avons aucun cas traité par notre code lié à cette partie.
+
+#### 5. Context Coverage (Couverture du contexte)  
+- **Context completeness (Exhaustivité du contexte)** : Le programme doit être capable de s’adapter à différentes architectures (monoposte, cluster, cloud).  
+- **Flexibility (Flexibilité)** : L’algorithme peut être modifié et appliqué à d’autres types de simulations nécessitant du calcul distribué.  
+
+Les deux codes sont flexibles et peuvent s'effecuter sur plusieurs architectures. Nous avons pu réalisés avec l'aide des Sockets une de la programmation à mémoire paratgée et à mémoire distribuée sur des machines avec des architectures différentes.
+
+---
+
+### Product Quality  
+
+La qualité intrinsèque du produit est évaluée à travers les critères définis par **ISO 25010**, qui englobent les aspects structurels et fonctionnels du code.  
+
+#### 1. Fonctionnalité  
+- **Exactitude** : L’implémentation de Monte Carlo assure une précision correcte dans l'estimation de π, validée par des tests de comparaison.  
+- **Interopérabilité** : La solution peut fonctionner sur différentes infrastructures matérielles et logicielles, ce qui facilite son intégration dans divers environnements.  
+
+Nous avons pu observé une marge d'erreur minime sur les deux codes nous donnant une valeur approximative de pi à 10^-4^ près.
+
+#### 2. Fiabilité  
+- **Maturité** : Le programme a été testé sous plusieurs configurations, garantissant une certaine robustesse dans son exécution.  
+- **Tolérance aux fautes** : La gestion des erreurs est essentielle pour assurer la continuité du traitement, notamment en cas de panne d’un worker. 
+
+La fiabilité de Assignement102 est très limitée comparée à Pi qui gère beaucoup mieux les threads et à un code beaucoup plus optimisé. 
+
+#### 3. Performance et Efficience  
+- **Utilisation des ressources** : L’implémentation optimise l’utilisation du processeur grâce au parallélisme.  
+- **Scalabilité** : Le programme peut être exécuté sur un grand nombre de threads et de machines sans perte significative de performances. 
+
+Comme dit pour le point précédent, le code de Assignements102 limite énormément les capacités de la machines lui donnant une scalabilité forte nulle et une scalabitilité faible abominable. En revanche le code de Pi gère beaucoup mieux les ressources critiques et donc permet à la machine d'exploiter une très grande partie de ses ressources pour faire tourner le code.
+
+#### 4. Maintenabilité  
+- **Modularité** : La séparation des composants (`Master`, `Worker`, `Pi.java`) améliore la lisibilité et la réutilisabilité du code.  
+- **Analyse et testabilité** : Des tests unitaires et de performance sont nécessaires pour garantir la stabilité de l’application.  
+
+Malgrès un manque de test unitaires. Nous pouvons facilement réalisés des test d'acceptation et donc vérifier que les modifications apportées n'ont pas détruit le code.
+
+#### 5. Sécurité  
+- **Protection des données** : La communication entre Master et Workers via sockets nécessite des mécanismes de sécurisation pour éviter les interceptions et falsifications de données.
+
+Les exprériences étant étaient réalisées sur des réseaux 'local' fermés. Il n'y a pas de problèmes de confidentialité.
 
 ---
 
